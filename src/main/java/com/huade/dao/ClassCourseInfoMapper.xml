@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.ClassCourseInfoMapper">
+
+    <insert id="addClassCourseInfo" parameterType="ClassCourseInfo">
+        insert into online_exam.class_course(classes_Id, user_Id, cou_Id) VALUES
+        (#{classes_Id},#{user_Id},#{cou_Id})
+    </insert>
+
+    <delete id="deleteClassCourseInfo" parameterType="ClassCourseInfo">
+        delete from online_exam.class_course where classes_Id=#{classes_Id} and user_Id=#{user_Id} and cou_Id=#{cou_Id}
+    </delete>
+
+    <update id="updateClassCourseInfo" parameterType="ClassCourseInfo">
+        update online_exam.class_course
+        set classes_Id=#{new_ClassCourseInfoMapper.classes_Id},user_Id=#{new_ClassCourseInfoMapper.user_Id},cou_Id=#{new_ClassCourseInfoMapper.cou_Id}
+        where classes_Id=#{old_ClassCourseInfoMapper.classes_Id} and user_Id=#{old_ClassCourseInfoMapper.user_Id} and cou_Id=#{old_ClassCourseInfoMapper.cou_Id}
+    </update>
+
+    <select id="selectAllClassCourseInfo" resultType="View_Teacher_Class_Info">
+        select * from online_exam.view_teacher_class_info LIMIT #{current},#{length};
+    </select>
+
+    <select id="selectClassCourseInfo" resultType="View_Teacher_Class_Info">
+        select * from online_exam.view_teacher_class_info
+        <where>
+            <if test="class_Id != null and class_Id != ''">
+                and classes_Id in
+                <foreach collection="class_Id" index="index" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="user_Id != null and user_Id != ''">
+                and user_Id =#{user_Id}
+            </if>
+            <if test="cou_Id != null and cou_Id != ''">
+                and cou_Id =#{cou_Id}
+            </if>
+        </where>
+        LIMIT #{current},#{length};
+    </select>
+
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.ClassInfoMapper">
+
+    <insert id="addClassInfo" parameterType="ClassInfo">
+        insert into online_exam.classes (Id, class_Id, people_Num, class_Col_Id, class_Spe_Id) VALUES
+        (#{Id},#{class_Id},#{people_Num},#{class_Col_Id},#{class_Spe_Id})
+    </insert>
+
+    <delete id="deleteClassInfo" parameterType="String">
+        delete from online_exam.classes where Id =#{Id}
+    </delete>
+
+    <update id="updateClassInfo" parameterType="ClassInfo">
+        update online_exam.classes set class_Id=#{class_Id}, people_Num=#{people_Num}, class_Col_Id=#{class_Col_Id},
+        class_Spe_Id=#{class_Spe_Id}
+        where Id =#{Id}
+    </update>
+
+    <select id="selectAllClassInfo" resultType="View_ClassInfo">
+        select * from online_exam.view_class_info
+    </select>
+
+    <select id="selectClassInfo" resultType="View_ClassInfo">
+        select * from online_exam.view_class_info
+        <where>
+            <if test="col_Id != null and col_Id != ''">
+                and col_Name = (select col_Name from online_exam.college where Id=#{col_Id})
+            </if>
+            <if test="spe_Id != null and spe_Id != ''">
+                and spe_Name = (select spe_Name from online_exam.specialty where Id=#{spe_Id})
+            </if>
+        </where>
+        LIMIT #{current},#{length};
+    </select>
+
+    <select id="selectId" resultType="String">
+        select Id from online_exam.classes where class_Id = #{class_Id}
+    </select>
+
+</mapper>

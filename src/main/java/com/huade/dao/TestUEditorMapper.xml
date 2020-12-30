@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.TestUEditorMapper">
+
+    <insert id="addTestInfo" parameterType="Test_Ueditor">
+        insert into online_exam.test_ueditor(Id, text) VALUES
+        (#{Id},#{text})
+    </insert>
+
+    <select id="selectTestInfo" resultType="Test_Ueditor">
+        select * from online_exam.test_ueditor where Id = #{Id};
+    </select>
+
+    <insert id="batchAddTestInfo" parameterType="java.util.List">
+        insert into online_exam.test_ueditor(Id, text) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.Id},#{item.text})
+        </foreach>
+    </insert>
+
+</mapper>

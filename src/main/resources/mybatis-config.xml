@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <typeAliases>
+        <package name="com.huade.pojo"/>
+    </typeAliases>
+
+    <mappers>
+        <mapper class="com.huade.dao.UserMapper"/>
+        <mapper class="com.huade.dao.ClassInfoMapper"/>
+        <mapper class="com.huade.dao.CollegeInfoMapper"/>
+        <mapper class="com.huade.dao.SpecialtyInfoMapper"/>
+        <mapper class="com.huade.dao.UserTypeMapper"/>
+        <mapper class="com.huade.dao.QuestionTypeMapper"/>
+        <mapper class="com.huade.dao.StudentBasicMapper"/>
+        <mapper class="com.huade.dao.CourseMapper"/>
+        <mapper class="com.huade.dao.ClassCourseInfoMapper"/>
+        <mapper class="com.huade.dao.TeacherBasicMapper"/>
+        <mapper class="com.huade.dao.KnowledgeMapper"/>
+        <mapper class="com.huade.dao.TestUEditorMapper"/>
+    </mappers>
+</configuration>

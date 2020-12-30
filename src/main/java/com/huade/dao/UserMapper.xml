@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.UserMapper">
+
+    <insert id="addUser" parameterType="User">
+        insert into online_exam.user(user_Id, password, user_Name, user_Type, user_Sex, user_Mobile) VALUES
+        (#{user_Id},#{password},#{user_Name},#{user_Type},#{user_Sex},#{user_Mobile})
+    </insert>
+
+    <delete id="deleteUser" parameterType="String">
+        delete from online_exam.user
+        where user_Id=#{user_Id}
+    </delete>
+
+    <update id="updateUser" parameterType="User">
+        update online_exam.user
+        set user_Name=#{user_Name},user_Type=#{user_Type},user_Sex=#{user_Sex},user_Mobile=#{user_Mobile}
+        where user_Id=#{user_Id}
+    </update>
+
+    <select id="selectAllUser" resultType="User">
+        select * from online_exam.user
+    </select>
+
+    <select id="Login" resultType="User">
+        select * from online_exam.user where user_Id = #{user_Id} and password = #{password}
+    </select>
+
+    <insert id="batchAddUser" parameterType="java.util.List">
+        insert into online_exam.user(user_Id, password, user_Name, user_Type, user_Sex, user_Mobile) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.user_Id},#{item.password},#{item.user_Name},#{item.user_Type},#{item.user_Sex},#{item.user_Mobile})
+        </foreach>
+    </insert>
+
+</mapper>

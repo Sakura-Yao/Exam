@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.TeacherBasicMapper">
+
+    <insert id="addTeacherBasicInfo" parameterType="Teacher_Basic">
+        insert into online_exam.teacher_basic(user_Id, college_Id, specialty_Id) VALUES
+        (#{user_Id},#{college_Id},#{specialty_Id})
+    </insert>
+
+    <insert id="batchAddTeacherBasicInfo" parameterType="java.util.List">
+        insert into online_exam.teacher_basic(user_Id, college_Id, specialty_Id) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.user_Id},#{item.college_Id},#{item.specialty_Id})
+        </foreach>
+    </insert>
+
+
+    <delete id="deleteTeacherBasicInfo" parameterType="String">
+        delete from online_exam.teacher_basic where user_Id=#{user_Id}
+    </delete>
+
+    <update id="updateTeacherBasicInfo" parameterType="Teacher_Basic">
+        update online_exam.teacher_basic
+        set college_Id=#{college_Id},specialty_Id=#{specialty_Id}
+        where user_Id=#{user_Id}
+    </update>
+
+    <select id="selectAllTeacherBasic" resultType="Teacher_Basic">
+        select * from online_exam.teacher_basic
+        LIMIT #{current},#{length};
+    </select>
+
+    <select id="selectTeacherBasic" resultType="Teacher_Basic">
+        select * from online_exam.teacher_basic
+        <where>
+            <if test="user_Id != null and user_Id != ''">
+                and user_Id = #{user_Id}
+            </if>
+            <if test="col_Id != null and col_Id != ''">
+                and college_Id = #{col_Id}
+            </if>
+            <if test="spe_Id != null and spe_Id != ''">
+                and specialty_Id = #{spe_Id}
+            </if>
+        </where>
+        LIMIT #{current},#{length};
+    </select>
+
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.KnowledgeMapper">
+
+    <insert id="addKnowledge" parameterType="Knowledge">
+        insert into online_exam.knowledge(Id, cou_Id, kwl_Level, chapter_Num, section_Num, kwl_Name, parent_Id) VALUES
+        (#{Id},#{cou_Id},#{kwl_Level},#{chapter_Num},#{section_Num},#{kwl_Name},#{parent_Id})
+    </insert>
+
+    <delete id="deleteKnowledge" parameterType="String">
+        delete from online_exam.knowledge where Id=#{Id}
+    </delete>
+
+    <update id="updateKnowledge" parameterType="Knowledge">
+        update online_exam.knowledge
+        set cou_Id=#{cou_Id},kwl_Level=#{kwl_Level},chapter_Num=#{chapter_Num},section_Num=#{section_Num},parent_Id=#{parent_Id}
+        where Id=#{Id}
+    </update>
+
+    <select id="selectAllKnowledge" resultType="View_Knowledge">
+        select * from online_exam.view_knowledge
+        order by kwl_Level ASC,chapter_Num ASC,section_Num ASC
+        LIMIT #{current},#{length};
+    </select>
+
+    <select id="selectKnowledge" resultType="View_Knowledge">
+        select * from online_exam.view_knowledge
+        <where>
+            <if test="Id != null and Id != ''">
+                and Id = #{Id}
+            </if>
+            <if test="cou_Id != null and cou_Id != ''">
+                and cou_Id = #{cou_Id}
+            </if>
+            <if test="kwl_Level != null and kwl_Level != ''">
+                and kwl_Level = #{kwl_Level}
+            </if>
+            <if test="chapter_Num != null and chapter_Num != ''">
+                and chapter_Num = #{chapter_Num}
+            </if>
+            <if test="section_Num != null and section_Num != ''">
+                and section_Num = #{section_Num}
+            </if>
+        </where>
+        order by kwl_Level ASC,chapter_Num ASC,section_Num ASC
+        LIMIT #{current},#{length};
+    </select>
+
+</mapper>

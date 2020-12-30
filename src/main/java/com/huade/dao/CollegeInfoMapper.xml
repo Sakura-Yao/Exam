@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.CollegeInfoMapper">
+
+    <insert id="addCollegeInfo" parameterType="CollegeInfo">
+        insert into online_exam.college(Id, col_Name) value (#{Id},#{col_Name})
+    </insert>
+
+    <delete id="deleteCollegeInfo" parameterType="String">
+        delete from online_exam.college where Id=#{col_Id}
+    </delete>
+
+    <update id="updateCollegeInfo" parameterType="CollegeInfo">
+        update online_exam.college
+        set col_Name=#{col_Name}
+        where Id=#{Id}
+    </update>
+
+    <select id="selectAllCollegeInfo" resultType="CollegeInfo">
+        select * from online_exam.college
+    </select>
+
+    <select id="selectCollegeInfo_col_Id" resultType="CollegeInfo">
+        select * from online_exam.college where Id =#{col_Id}
+    </select>
+
+    <select id="selectCol_Id" resultType="String">
+        select Id from online_exam.college where col_Name = #{col_Name}
+    </select>
+
+</mapper>

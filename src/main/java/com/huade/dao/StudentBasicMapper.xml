@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.StudentBasicMapper">
+
+    <insert id="addStudentBasic" parameterType="Student_Basic">
+        insert into online_exam.student_basic(user_Id, stu_ClassId, stu_College, stu_Specialty) VALUES
+        (#{user_Id},#{stu_ClassId},#{stu_College},#{stu_Specialty})
+    </insert>
+
+    <insert id="batchAddStudentBasicInfo" parameterType="java.util.List">
+        insert into online_exam.student_basic(user_Id, stu_ClassId, stu_College, stu_Specialty) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.user_Id},#{item.stu_ClassId},#{item.stu_College},#{item.stu_Specialty})
+        </foreach>
+    </insert>
+
+    <delete id="deleteStudentBasic" parameterType="String">
+        delete from online_exam.student_basic
+        where user_Id=#{user_Id}
+    </delete>
+
+    <update id="updateStudentBasic" parameterType="Student_Basic">
+        update online_exam.student_basic
+        set stu_ClassId=#{stu_ClassId},stu_College=#{stu_College},stu_Specialty=#{stu_Specialty}
+        where user_Id=#{user_Id}
+    </update>
+
+    <select id="selectAllStudentBasic" resultType="Student_Basic">
+        select * from online_exam.student_basic
+    </select>
+
+    <select id="selectStudentBasic" resultType="View_StudentBasicInfo">
+        select * from online_exam.view_studentbasic_info
+        <where>
+            <if test="user_Id != null and user_Id != ''">
+                and user_Id = #{user_Id}
+            </if>
+            <if test="user_Name != null and user_Name != ''">
+                and user_Name like "%"#{user_Name}"%"
+            </if>
+            <if test="class_Id != null and class_Id != ''">
+                and class_Id = #{class_Id}
+            </if>
+            <if test="col_Id != null and col_Id != ''">
+                and col_Name = (select col_Name from college where Id=#{col_Id})
+            </if>
+            <if test="spe_Id != null and spe_Id != ''">
+                and spe_Name = (select spe_Name from specialty where Id=#{spe_Id})
+            </if>
+        </where>
+        LIMIT #{current},#{length};
+    </select>
+
+</mapper>

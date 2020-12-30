@@ -1,0 +1,37 @@
+各个Service方法和说明：
+
+班级信息操作Service：ClassInfoServiceImpl
+ClassInfoServiceImpl classInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("ClassInfoServiceImpl",ClassInfoServiceImpl.class);
+
+学院信息操作Service：CollegeInfoServiceImpl
+CollegeInfoServiceImpl collegeInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("CollegeInfoServiceImpl",CollegeInfoServiceImpl.class);
+
+专业信息操作Service：SpecialtyInfoServiceImpl
+SpecialtyInfoServiceImpl specialtyInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("SpecialtyInfoServiceImpl",SpecialtyInfoServiceImpl.class);
+
+
+科目信息操作Service：CourseServiceImpl
+CourseServiceImpl courseServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("CourseServiceImpl",CourseServiceImpl.class);
+
+试题类型操作Service：QuestionTypeServiceImpl
+QuestionTypeServiceImpl questionTypeServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("QuestionTypeServiceImpl",QuestionTypeServiceImpl.class);
+
+用户类别操作Sercvce：UserTypeServiceImpl
+UserTypeServiceImpl userTypeServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("UserTypeServiceImpl",UserTypeServiceImpl.class);
+
+
+用户信息操作Service：UserServiceImpl
+UserServiceImpl userServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("UserServiceImpl",UserServiceImpl.class);
+
+学生基础信息操作Service：StudentBasicServiceImpl
+StudentBasicServiceImpl studentBasicServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("StudentBasicServiceImpl",StudentBasicServiceImpl.class);
+
+教师基础信息操作Service：TeacherBasicServiceImpl
+TeacherBasicServiceImpl teacherBasicServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("TeacherBasicServiceImpl",TeacherBasicServiceImpl.class);
+
+
+班级与科目对应关系操作Service：ClassCourseInfoServiceImpl
+ClassCourseInfoServiceImpl classCourseInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("ClassCourseInfoServiceImpl",ClassCourseInfoServiceImpl.class);
+
+知识点操作Service：KnowledgeServiceImpl
+KnowledgeServiceImpl knowledgeServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("KnowledgeServiceImpl",KnowledgeServiceImpl.class);

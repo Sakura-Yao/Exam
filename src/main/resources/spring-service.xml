@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--    扫描service相关的bean-->
+    <context:component-scan base-package="com.huade.service"/>
+
+    <bean id="ClassInfoServiceImpl" class="com.huade.service.ClassInfoServiceImpl">
+        <property name="classInfoMapper" ref="classInfoMapper"/>
+    </bean>
+
+    <bean id="CollegeInfoServiceImpl" class="com.huade.service.CollegeInfoServiceImpl">
+        <property name="collegeInfoMapper" ref="collegeInfoMapper"/>
+    </bean>
+
+    <bean id="SpecialtyInfoServiceImpl" class="com.huade.service.SpecialtyInfoServiceImpl">
+        <property name="specialtyInfoMapper" ref="specialtyInfoMapper"/>
+    </bean>
+
+    <bean id="UserTypeServiceImpl" class="com.huade.service.UserTypeServiceImpl">
+        <property name="userTypeMapper" ref="userTypeMapper"/>
+    </bean>
+
+    <bean id="QuestionTypeServiceImpl" class="com.huade.service.QuestionTypeServiceImpl">
+        <property name="questionTypeMapper" ref="questionTypeMapper"/>
+    </bean>
+
+    <bean id="UserServiceImpl" class="com.huade.service.UserServiceImpl">
+        <property name="userMapper" ref="userMapper"/>
+    </bean>
+
+    <bean id="StudentBasicServiceImpl" class="com.huade.service.StudentBasicServiceImpl">
+        <property name="studentBasicMapper" ref="studentBasicMapper"/>
+    </bean>
+
+    <bean id="CourseServiceImpl" class="com.huade.service.CourseServiceImpl">
+        <property name="courseMapper" ref="courseMapper"/>
+    </bean>
+
+    <bean id="ClassCourseInfoServiceImpl" class="com.huade.service.ClassCourseInfoServiceImpl">
+        <property name="classCourseInfoMapper" ref="classCourseInfoMapper"/>
+    </bean>
+
+    <bean id="TeacherBasicServiceImpl" class="com.huade.service.TeacherBasicServiceImpl">
+        <property name="teacherBasicMapper" ref="teacherBasicMapper"/>
+    </bean>
+
+    <bean id="KnowledgeServiceImpl" class="com.huade.service.KnowledgeServiceImpl">
+        <property name="knowledgeMapper" ref="knowledgeMapper"/>
+    </bean>
+
+    <bean id="TestUEditorServiceImpl" class="com.huade.service.TestUEditorServiceImpl">
+        <property name="testUEditorMapper" ref="testUEditorMapper"/>
+    </bean>
+
+<!--    配置事物管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+<!--        注册数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+</beans>

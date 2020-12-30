@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.QuestionTypeMapper">
+    
+    <insert id="addQuestionType" parameterType="Question_Type">
+        insert into online_exam.question_type(Id, type_Name) VALUES 
+        (#{Id},#{type_Name})
+    </insert>
+    
+    <delete id="deleteQuestionType" parameterType="String">
+        delete from online_exam.question_type
+        where Id=#{Id}
+    </delete>
+    
+    <update id="updateQuestionType" parameterType="Question_Type">
+        update online_exam.question_type
+        set question_type.type_Name =#{type_Name}
+        where Id=#{Id}
+    </update>
+    
+    <select id="selectAllQuestionType" resultType="Question_Type">
+        select * from online_exam.question_type
+    </select>
+    
+    <select id="selectQuestionType_Id" resultType="String">
+        select type_Name from online_exam.question_type
+        where Id=#{Id}
+    </select>
+    
+</mapper>

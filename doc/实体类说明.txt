@@ -1,0 +1,125 @@
+实体类说明：
+
+ClassCourseInfo（班级与课程对应关系）：
+字段：
+String classes_Id; 班级编号（32位uuid 非10位班号）
+String user_Id; 教师工号（11位）
+String cou_Id;	课程编号（10位 2位大写字母+8位数字）
+
+ClassInfo（班级信息）：
+字段：
+String Id; 班级编号（32为uuid 非10为班号）
+String class_Id; 班号 （10位）
+String people_Num; 人数 （填 0 即可）
+String class_Col_Id; 所属学院编号 （32位uuid）
+String class_Spe_Id; 所属专业编号 （32位uuid）
+
+CollegeInfo（学院信息）：
+字段：
+String Id; 学院编号 （32位uuid）
+String col_Name; 学院名称
+
+Course（课程信息）：
+字段：
+String Id; 课程编号 （10位 2位大写字母+8位数字）
+String cou_Name; 课程名称 
+String spe_Id; 所属专业 （32位uuid）
+
+Knowledge（知识点）：
+字段：
+String Id; 知识点编号 （32位uuid）
+String cou_Id; 课程编号 （32位uuid）
+String kwl_Level; 知识点等级 （1、2）
+String chapter_Num; 所属章节数 （1、2、3、。。。）
+String section_Num; 所属小节数 （当知识点等级为1级时，填写 0 其余按需填写1、2、3）
+String kwl_Name; 知识点名称
+String parent_Id; 从属Id（当知识点等级为1级时，可不填写；当知识点等级为2级时，填写对应某一章的知识点Id）
+
+Question_Type（试题类型）：
+字段：
+String Id; 类型编号（32位uuid）
+String type_Name; 类型名称
+
+Sort_Knowledge（知识点排序，排序之后可直接显示到前端）：
+字段：
+String Id; 知识点Id
+String cou_Name; 科目名称
+Integer kwl_Level; 知识点等级
+Integer chapter_Num; 章数
+Integer section_Num; 小节数
+String kwl_Name; 知识点名称
+
+Specialty（专业信息）：
+字段：
+String Id; 专业Id
+String spe_Name; 专业名
+String col_Id; 所属学院Id
+
+Student_Basic（学生基础信息）：
+字段：
+String user_Id; 学号
+String stu_ClassId; 学生所在的班级编号（32位uuid 非10位班号）
+String stu_College; 学生所在的学院Id
+String stu_Specialty; 学生所在的专业Id
+
+Teacher_Basic（教师基础信息）：
+字段：
+String user_Id; 教师工号
+String college_Id; 教师所在学院Id
+String specialty_Id; 教师所在专业Id
+
+User（用户基本信息）：
+字段：
+String user_Id; 学工号
+String password; 密码（经过MD5加密）
+String user_Name; 姓名
+String user_Type; 用户类型Id
+String user_Sex; 性别（男、女）
+String user_Mobile; 电话号码
+
+User_Type（用户类型信息）：
+字段：
+String Id; 类型Id（32位uuid）
+String user_Type; 类型名称
+
+View_ClassInfo（班级信息视图）：
+字段：
+String Id; 班级编号（32位uuid 非10位班号）
+String class_Id; 班号
+String people_Num; 班级人数
+String col_Name; 所属学院名称
+String spe_Name; 所属专业名称
+
+View_CourseInfo（科目信息视图）：
+字段：
+String Id; 科目Id
+String cou_Name; 科目名称
+String spe_Name; 所属专业名称
+
+View_Knowledge（知识点视图）：
+字段：
+String Id; 知识点Id
+String cou_Id; 科目Id
+String cou_Name; 科目名称
+String kwl_Level; 知识点等级
+String chapter_Num; 章数
+String section_Num; 小节数
+String kwl_Name; 知识点名称
+String parent_Id; 所属Id
+
+View_StudentBasicInfo（学生基础信息视图	）：
+字段：
+String user_Id; 学号
+String user_Name; 姓名
+String class_Id; 所属班级班号（10位编号）
+String col_Name; 所属学院名
+String spe_Name; 所属专业名
+
+View_Teacher_Class_Info（教师与班级关系信息视图）：
+字段：
+String user_Id; 工号
+String user_Name; 姓名
+String classes_Id; 所教授班级Id（32为uuid 非10为班号）
+String class_Id; 所教授班级班号
+String cou_Id; 所教授科目Id
+String cou_Name; 所教授科目名称

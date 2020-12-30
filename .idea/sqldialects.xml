@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/ClassCourseInfoMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/ClassInfoMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/CollegeInfoMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/CourseMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/KnowledgeMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/QuestionTypeMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/SpecialtyInfoMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/StudentBasicMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/TeacherBasicMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/TestUEditorMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/UserMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/UserTypeMapper.xml" dialect="MySQL" />
+  </component>
+</project>

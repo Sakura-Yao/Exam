@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.CourseMapper">
+
+    <insert id="addCourseInfo" parameterType="Course">
+        insert into online_exam.course(Id, cou_Name, spe_Id) VALUES
+        (#{Id},#{cou_Name},#{spe_Id})
+    </insert>
+
+    <delete id="deleteCourseInfo" parameterType="String">
+        delete from online_exam.course where Id=#{Id}
+    </delete>
+
+    <update id="updateCourseInfo" parameterType="Course">
+        update online_exam.course
+        set cou_Name=#{cou_Name},spe_Id=#{spe_Id}
+        where Id=#{Id}
+    </update>
+
+    <select id="selectAllCourseInfo" resultType="View_CourseInfo">
+        select * from online_exam.view_course_info LIMIT #{current},#{length};
+    </select>
+
+    <select id="selectCourseInfo" resultType="View_CourseInfo">
+        select * from online_exam.view_course_info
+        <where>
+            <if test="spe_Id != null and spe_Id != ''">
+                and spe_Id=#{spe_Id}
+            </if>
+        </where>
+        LIMIT #{current},#{length};
+    </select>
+
+</mapper>

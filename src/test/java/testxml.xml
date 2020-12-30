@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+    <uploadFilePath>
+        <Title>接受上传文件目录</Title>
+        <Path>/Users/yaoyuan/Exam/file</Path>
+    </uploadFilePath>
+
+    <downloadFilePath>
+        <Title>提供下载文件的目录</Title>
+        <Path>/Users/yaoyuan/Exam/mode</Path>
+    </downloadFilePath>
+
+</list>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jQuery_v3.5.1.js"></script>
+    <script>
+        function submit_file() {
+            var formData = new FormData();
+            formData.append("file", $("#file")[0].files[0]);
+            console.log(formData);
+            $.ajax({
+                url: "/upload",
+                type: "POST",
+                cache: false,
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+
+<input type="file" id="file"/>
+<button onclick="submit_file()" >提交</button>
+
+</body>
+</html>

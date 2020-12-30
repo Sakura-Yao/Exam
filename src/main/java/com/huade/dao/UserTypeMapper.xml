@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.UserTypeMapper">
+
+    <insert id="addUserType" parameterType="User_Type">
+        insert into online_exam.user_type(Id, user_Type) VALUES
+        (#{Id},#{user_Type})
+    </insert>
+
+    <delete id="deleteUserType" parameterType="String">
+        delete from online_exam.user_type where Id=#{Id}
+    </delete>
+
+    <update id="updateUserType" parameterType="User_Type">
+        update online_exam.user_type
+        set user_Type=#{user_Type}
+        where Id=#{Id}
+    </update>
+
+    <select id="selectAllUserType" resultType="User_Type">
+        select * from online_exam.user_type
+    </select>
+
+    <select id="selectUserType_Id" resultType="String">
+        select user_Type from online_exam.user_type where Id=#{Id}
+    </select>
+
+    <select id="selectUserType_Name" resultType="String">
+        select Id from online_exam.user_type where user_Type = #{type_Name}
+    </select>
+
+</mapper>

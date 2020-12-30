@@ -1,0 +1,19 @@
+ExcelData
+批量导入知识点信息：Map batch_knowledge(String filePath,String sheetName);
+
+UtilTools
+MD5加密算法：String Encrypted_MD5(String str);
+
+随机生成密码：String RandomPassword();
+
+随机生成课程编号：String RandomCourseId();
+
+字符串转字符数组：String[] StringToStringArr(String str);
+
+获取1级知识点的Id：String GetLevel_1_Id(String cou_Id,String chapter_Num);
+
+添加知识点信息：int AddKnowledge(Knowledge knoledge);
+
+一级知识点排序：List<Sort_Knowledge> Sort_Level_1 (List<Sort_Knowledge> list_know);
+
+二级知识点排序：List<Sort_Knowledge> Sort_Level_2 (List<Sort_Knowledge> list_know)

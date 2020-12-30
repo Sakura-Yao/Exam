@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script language="JavaScript" src="js/jQuery_v3.5.1.js"></script>
+    <script>
+        //window.onload = res;
+        function res() {
+            $.ajax({
+                url:"/testSelect",
+                type:"POST",
+                data:{
+                    "Id":$("#Id").val()
+                },
+                dataType:"json",
+                success:function (res) {
+                    document.getElementById("res").innerHTML = res.res;
+                }
+
+            })
+        }
+    </script>
+</head>
+<body>
+<input type="text" id="Id" maxlength="40" size="40" placeholder="请输入需要查询富文本的Id值">
+<button value="提交" onclick="res()">查询</button>
+<div id="res"></div>
+
+</body>
+</html>

@@ -303,10 +303,6 @@ public class Public {
         System.out.println(UtilTools.BatchAddUserInfo("/Users/yaoyuan/Online_Exam/file/批量添加用户信息.xlsx"));
     }
 
-    @Test
-    public void test18(){
-        System.out.println("helloworld!");
-    }
 
 
 

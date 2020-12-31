@@ -58,6 +58,10 @@
         <property name="testUEditorMapper" ref="testUEditorMapper"/>
     </bean>
 
+    <bean id="QuestionInfoServiceImpl" class="com.huade.service.QuestionInfoServiceImpl">
+        <property name="questionInfoMapper" ref="questionInfoMapper"/>
+    </bean>
+
 <!--    配置事物管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 <!--        注册数据库连接池-->

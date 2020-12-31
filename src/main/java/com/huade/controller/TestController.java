@@ -3,12 +3,15 @@ package com.huade.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.huade.pojo.QuestionInfo;
 import com.huade.pojo.Test_Ueditor;
+import com.huade.service.QuestionInfoServiceImpl;
 import com.huade.service.TestUEditorServiceImpl;
 import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +43,7 @@ public class TestController {
             realName = getRealName(file.getOriginalFilename());
             uuidName = getUUIDFileName(file.getOriginalFilename());
 
-            realPath = "/usr/file/images";
+            realPath = "/Users/yaoyuan/Online_Exam/file/image";
             InputStream in = new BufferedInputStream(file.getInputStream());
             OutputStream out = new BufferedOutputStream(new FileOutputStream(new File(realPath,uuidName)));
             IOUtils.copy(in,out);
@@ -101,13 +104,17 @@ public class TestController {
                             @RequestParam("answer")String answer) throws JsonProcessingException {
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
+        String cou_Id = "LT96785089";
+        String type_Id = "a3514b0394a940cea19d5e1ef74b041f";
         // editorValue 为富文本编译器提交的内容
         System.out.println("Question:"+question);
         System.out.println("Answer:"+answer);
         String uuid = UUID.randomUUID().toString().replace("-","");
-        Test_Ueditor test_ueditor = new Test_Ueditor(uuid,question+answer);
-        testUEditorService.addTestInfo(test_ueditor);
-        return question+answer;
+        QuestionInfoServiceImpl questionInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("QuestionInfoServiceImpl", QuestionInfoServiceImpl.class);
+        QuestionInfo questionInfo = new QuestionInfo(uuid,cou_Id,type_Id,question,"--","--","--","--",answer,"0.65","2a58739e2ea04f1aa69da84726836e8f","");
+        int res = questionInfoServiceImpl.addQuestionInfo(questionInfo);
+
+        return String.valueOf(res);
     }
 
 }

@@ -97,6 +97,11 @@ public class Public {
     }
 
     @Test
+    public void getuuid(){
+//        System.out.println(uuid());
+
+    }
+    @Test
     public void test_makeUUID(){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(uuid());

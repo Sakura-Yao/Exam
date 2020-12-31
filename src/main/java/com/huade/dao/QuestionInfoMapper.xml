@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.QuestionInfoMapper">
+
+    <insert id="addQuestionInfo" parameterType="QuestionInfo">
+        insert into online_exam.question(Id, cou_Id, type_Id, subject, choice_A, choice_B, choice_C, choice_D, answer, degree, kwl_Id, analysis) VALUES
+        (#{Id},#{cou_Id},#{type_Id},#{subject},#{choice_A},#{choice_B},#{choice_C},#{choice_D},#{answer},#{degree},#{kwl_Id},#{analysis})
+    </insert>
+
+    <delete id="deleteQuestionInfo" parameterType="String">
+        delete from online_exam.question where Id=#{Id}
+    </delete>
+
+    <update id="updateQuestionInfo" parameterType="QuestionInfo">
+        update online_exam.question set
+        cou_Id=#{cou_Id}, type_Id=#{type_Id}, `subject`=#{subject}, choice_A=#{choice_A}, choice_B=#{choice_B}, choice_C=#{choice_C}, choice_D=#{choice_D}, answer=#{answer}, degree=#{degree}, kwl_Id=#{kwl_Id}, analysis=#{analysis}
+        where Id=#{Id}
+    </update>
+
+    <select id="selectQuestionInfo" resultType="QuestionInfo">
+        select * from online_exam.question
+        <where>
+            <if test="question_Id != null and question_Id''">
+                and question_Id = #{question_Id}
+            </if>
+            <if test="cou_Id != null and cou_Id''">
+                and cou_Id = #{cou_Id}
+            </if>
+            <if test="type_Id != null and type_Id''">
+                and type_Id = #{type_Id}
+            </if>
+            <if test="subject != null and subject''">
+                and `subject` = #{subject}
+            </if>
+            <if test="degree != null and degree''">
+                and question_Id = #{question_Id}
+            </if>
+        </where>
+        LIMIT #{current},#{length};
+    </select>
+
+</mapper>

@@ -6,6 +6,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/CollegeInfoMapper.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/CourseMapper.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/KnowledgeMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/QuestionInfoMapper.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/QuestionTypeMapper.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/SpecialtyInfoMapper.xml" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/huade/dao/StudentBasicMapper.xml" dialect="MySQL" />

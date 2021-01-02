@@ -110,28 +110,30 @@ public class CourseController {
             return mapper.writeValueAsString(object);
         }
     }
-    @RequestMapping("/selectCourseInfo")
-    @ResponseBody
-    public String selectCourseInfo(HttpSession session,@Param("spe_Id") String spe_Id,@Param("current") int current,@Param("length") int length) throws JsonProcessingException {
-        JSONObject object = new JSONObject();
-        ObjectMapper mapper = new ObjectMapper();
-        if (session.getAttribute("login_session") != null) {
-            if (courseService.selectCourseInfo(spe_Id, current, length) != null) {
-                object.put("code", 1);
-                object.put("message", "查询课程成功！");
-                object.put("data",courseService.selectCourseInfo(spe_Id, current, length));
-                return mapper.writeValueAsString(object);
-            } else {
-                object.put("code", 0);
-                object.put("message", "未查询到任何课程！");
-                return mapper.writeValueAsString(object);
-            }
-        } else {
-            object.put("code", -1);
-            object.put("message", "登陆状态失效！请重新登录！");
-            return mapper.writeValueAsString(object);
-        }
-    }
+
+    //需要更改
+//    @RequestMapping("/selectCourseInfo")
+//    @ResponseBody
+//    public String selectCourseInfo(HttpSession session,@Param("spe_Id") String spe_Id,@Param("current") int current,@Param("length") int length) throws JsonProcessingException {
+//        JSONObject object = new JSONObject();
+//        ObjectMapper mapper = new ObjectMapper();
+//        if (session.getAttribute("login_session") != null) {
+//            if (courseService.selectCourseInfo(spe_Id, current, length) != null) {
+//                object.put("code", 1);
+//                object.put("message", "查询课程成功！");
+//                object.put("data",courseService.selectCourseInfo(spe_Id, current, length));
+//                return mapper.writeValueAsString(object);
+//            } else {
+//                object.put("code", 0);
+//                object.put("message", "未查询到任何课程！");
+//                return mapper.writeValueAsString(object);
+//            }
+//        } else {
+//            object.put("code", -1);
+//            object.put("message", "登陆状态失效！请重新登录！");
+//            return mapper.writeValueAsString(object);
+//        }
+//    }
 
 
 

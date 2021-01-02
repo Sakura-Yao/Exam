@@ -35,8 +35,8 @@ public class ClassInfoServiceImpl implements ClassInfoService {
     }
 
     @Override
-    public List<ClassInfo> selectClassInfo(String col_Id,String spe_Id,int current,int length) {
-        return classInfoMapper.selectClassInfo(col_Id,spe_Id,current,length);
+    public List<ClassInfo> selectClassInfo(String Id,String col_Id,String spe_Id,int current,int length) {
+        return classInfoMapper.selectClassInfo(Id,col_Id,spe_Id,current,length);
     }
 
     @Override

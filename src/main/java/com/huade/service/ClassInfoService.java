@@ -15,7 +15,7 @@ public interface ClassInfoService {
 
     List<View_ClassInfo> selectAllClassInfo();
 
-    List<ClassInfo> selectClassInfo(String col_Id,String spe_Id,int current,int length);
+    List<ClassInfo> selectClassInfo(String Id,String col_Id,String spe_Id,int current,int length);
 
     String selectId(String class_Id);
 

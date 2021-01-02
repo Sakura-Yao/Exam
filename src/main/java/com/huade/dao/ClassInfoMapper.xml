@@ -26,6 +26,9 @@
     <select id="selectClassInfo" resultType="View_ClassInfo">
         select * from online_exam.view_class_info
         <where>
+            <if test="Id != null and Id != ''">
+                and Id = #{Id}
+            </if>
             <if test="col_Id != null and col_Id != ''">
                 and col_Name = (select col_Name from online_exam.college where Id=#{col_Id})
             </if>

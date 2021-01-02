@@ -16,7 +16,8 @@ public interface ClassInfoMapper {
 
     List<View_ClassInfo> selectAllClassInfo();
 
-    List<ClassInfo> selectClassInfo(@Param("col_Id")String col_Id,@Param("spe_Id") String spe_Id,@Param("current")int current,@Param("length") int length);
+    List<ClassInfo> selectClassInfo(@Param("Id")String Id,
+                                    @Param("col_Id")String col_Id,@Param("spe_Id") String spe_Id,@Param("current")int current,@Param("length") int length);
 
     String selectId(@Param("class_Id")String class_Id);
 

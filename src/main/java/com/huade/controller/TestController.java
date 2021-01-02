@@ -46,7 +46,16 @@ public class TestController {
             realPath = "/Users/yaoyuan/Online_Exam/file/image";
             InputStream in = new BufferedInputStream(file.getInputStream());
             OutputStream out = new BufferedOutputStream(new FileOutputStream(new File(realPath,uuidName)));
-            IOUtils.copy(in,out);
+            //读写
+            int len = 0;
+            byte[] buffer = new byte[102400];
+            while ((len = in.read(buffer)) != -1) {
+                out.write(buffer,0,len);
+                out.flush();
+            }
+            out.close();
+            in.close();
+            //IOUtils.copy(in,out);
             map.put("state", "SUCCESS");
             map.put("url","/images/"+uuidName);
             map.put("title",realName);

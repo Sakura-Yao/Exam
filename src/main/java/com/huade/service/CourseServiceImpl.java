@@ -34,7 +34,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> selectCourseInfo(String spe_Id, int current, int length) {
-        return courseMapper.selectCourseInfo(spe_Id,current,length);
+    public List<Course> selectCourseInfo(String cou_Name,String spe_Id, int current, int length) {
+        return courseMapper.selectCourseInfo(cou_Name,spe_Id,current,length);
     }
 }

@@ -26,6 +26,9 @@
     <select id="selectCourseInfo" resultType="View_CourseInfo">
         select * from online_exam.view_course_info
         <where>
+            <if test="cou_Name != null and cou_Name != ''">
+                and cou_Name like "%"#{cou_Name}"%"
+            </if>
             <if test="spe_Id != null and spe_Id != ''">
                 and spe_Id=#{spe_Id}
             </if>

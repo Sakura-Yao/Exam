@@ -14,6 +14,6 @@ public interface CourseService {
 
     List<Course> selectAllCourseInfo(int current, int length);
 
-    List<Course> selectCourseInfo(String spe_Id,int current,int length);
+    List<Course> selectCourseInfo(String cou_Name,String spe_Id,int current,int length);
 
 }

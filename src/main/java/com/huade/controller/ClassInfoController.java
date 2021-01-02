@@ -113,33 +113,36 @@ public class ClassInfoController {
 //            return mapper.writeValueAsString(object);
 //        }
 //    }
-    @RequestMapping("/selectClassInfo")
-    @ResponseBody
-    public String selectClassInfo(HttpSession session,
-                                  @Param("col_Id") String col_Id,
-                                  @Param("spe_Id") String spe_Id,
-                                  @Param("current") int current,
-                                  @Param("length") int length) throws JsonProcessingException{
-        JSONObject object = new JSONObject();
-        ObjectMapper mapper = new ObjectMapper();
-        if(session.getAttribute("login_session") != null){
-            if(classInfoService.selectClassInfo(col_Id, spe_Id, current, length) != null){
-                object.put("code",1);
-                object.put("message","查询班级信息成功！");
-                object.put("data",classInfoService.selectClassInfo(col_Id, spe_Id, current, length));
-                return mapper.writeValueAsString(object);
 
-            }else {
-                object.put("code",0);
-                object.put("message","未查询到班级信息！");
-                return mapper.writeValueAsString(object);
-            }
-        }else {
-            object.put("code",-1);
-            object.put("message","登陆状态失效！请重新登录！");
-            return mapper.writeValueAsString(object);
-        }
-    }
 
+    //需要修改
+//    @RequestMapping("/selectClassInfo")
+//    @ResponseBody
+//    public String selectClassInfo(HttpSession session,
+//                                  @Param("col_Id") String col_Id,
+//                                  @Param("spe_Id") String spe_Id,
+//                                  @Param("current") int current,
+//                                  @Param("length") int length) throws JsonProcessingException{
+//        JSONObject object = new JSONObject();
+//        ObjectMapper mapper = new ObjectMapper();
+//        if(session.getAttribute("login_session") != null){
+//            if(classInfoService.selectClassInfo(col_Id, spe_Id, current, length) != null){
+//                object.put("code",1);
+//                object.put("message","查询班级信息成功！");
+//                object.put("data",classInfoService.selectClassInfo(col_Id, spe_Id, current, length));
+//                return mapper.writeValueAsString(object);
+//
+//            }else {
+//                object.put("code",0);
+//                object.put("message","未查询到班级信息！");
+//                return mapper.writeValueAsString(object);
+//            }
+//        }else {
+//            object.put("code",-1);
+//            object.put("message","登陆状态失效！请重新登录！");
+//            return mapper.writeValueAsString(object);
+//        }
+//    }
+//
 
 }

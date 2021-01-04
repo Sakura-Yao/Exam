@@ -7,7 +7,6 @@ import com.huade.pojo.QuestionInfo;
 import com.huade.pojo.Test_Ueditor;
 import com.huade.service.QuestionInfoServiceImpl;
 import com.huade.service.TestUEditorServiceImpl;
-import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

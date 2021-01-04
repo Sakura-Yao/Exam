@@ -36,7 +36,9 @@
                 and spe_Name = (select spe_Name from online_exam.specialty where Id=#{spe_Id})
             </if>
         </where>
-        LIMIT #{current},#{length};
+        <if test="current != 0 and length != 0">
+            LIMIT #{current},#{length};
+        </if>
     </select>
 
     <select id="selectId" resultType="String">

@@ -112,7 +112,8 @@ public class Public {
 
     @Test
     public void test_edit_password (){
-        System.out.println(classInfoServiceImpl.selectAllClassInfo());
+        System.out.println(classInfoServiceImpl.selectAllClassInfo().size());
+        System.out.println(classInfoServiceImpl.selectClassInfo("","","",0,0).size());
     }
 
     @Test

@@ -45,7 +45,9 @@
                 and specialty_Id = #{spe_Id}
             </if>
         </where>
-        LIMIT #{current},#{length};
+        <if test="current != 0 and length != 0">
+            LIMIT #{current},#{length};
+        </if>
     </select>
 
 </mapper>

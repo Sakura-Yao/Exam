@@ -4,10 +4,13 @@ import com.huade.pojo.ClassInfo;
 import com.huade.pojo.View_ClassInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ClassInfoService {
 
     int addClassInfo (ClassInfo classInfo);
+
+    int batchAddClassInfo(List<Map<String ,Object>> classInfoList) throws Exception;
 
     int updateClassInfo (ClassInfo classInfo);
 

@@ -38,7 +38,9 @@
                 and question_Id = #{question_Id}
             </if>
         </where>
-        LIMIT #{current},#{length};
+        <if test="current != 0 and length != 0">
+            LIMIT #{current},#{length};
+        </if>
     </select>
 
 </mapper>

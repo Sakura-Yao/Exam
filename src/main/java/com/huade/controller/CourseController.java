@@ -27,7 +27,7 @@ public class CourseController {
     public String addCourseInfo(HttpSession session,@Param("Id") String Id,@Param("cou_Name") String cou_Name,@Param("spe_Id") String spe_Id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
-        Course course = new Course(Id,cou_Name,spe_Id);
+        Course course = new Course(Id,cou_Name);
         if(session.getAttribute("login_session") != null){
             if(courseService.addCourseInfo(course) == 1){
                 object.put("code",1);
@@ -71,7 +71,7 @@ public class CourseController {
     public String updateCourseInfo(HttpSession session,@Param("Id") String Id,@Param("cou_Name") String cou_Name,@Param("spe_Id") String spe_Id) throws JsonProcessingException {
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
-        Course course = new Course(Id,cou_Name,spe_Id);
+        Course course = new Course(Id,cou_Name);
         if (session.getAttribute("login_session") != null) {
             if (courseService.updateCourseInfo(course) == 1) {
                 object.put("code", 1);

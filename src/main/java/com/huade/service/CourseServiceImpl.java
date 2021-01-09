@@ -4,6 +4,7 @@ import com.huade.dao.CourseMapper;
 import com.huade.pojo.Course;
 
 import java.util.List;
+import java.util.Map;
 
 public class CourseServiceImpl implements CourseService {
 
@@ -16,6 +17,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public int addCourseInfo(Course course) {
         return courseMapper.addCourseInfo(course);
+    }
+
+    @Override
+    public int batchAddCourseInfo(List<Map<String, Object>> courseInfoList) throws Exception {
+        return courseMapper.batchAddCourseInfo(courseInfoList);
     }
 
     @Override
@@ -34,7 +40,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> selectCourseInfo(String cou_Name,String spe_Id, int current, int length) {
-        return courseMapper.selectCourseInfo(cou_Name,spe_Id,current,length);
+    public List<Course> selectCourseInfo(String cou_Name,int current, int length) {
+        return courseMapper.selectCourseInfo(cou_Name,current,length);
     }
 }

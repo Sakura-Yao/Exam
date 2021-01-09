@@ -299,8 +299,8 @@ public class Public {
 
     @Test
     public void test16(){
-        String in_Path = "/Users/yaoyuan/Online_Exam/file/batch_mode/userInfo.xlsx";
-        System.out.println(UtilTools.MakeBatchAddUserMode(in_Path));
+        String in_Path = "/Users/yaoyuan/Online_Exam/file/batch_mode/courseInfo.xlsx";
+        System.out.println(UtilTools.MakeBatchAddCourseInfo(in_Path));
     }
 
 

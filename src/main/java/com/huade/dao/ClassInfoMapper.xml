@@ -9,6 +9,13 @@
         (#{Id},#{class_Id},#{people_Num},#{class_Col_Id},#{class_Spe_Id})
     </insert>
 
+    <insert id="batchAddClassInfo" parameterType="java.util.List">
+        insert into online_exam.classes(Id, class_Id, people_Num, class_Col_Id, class_Spe_Id) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.Id},#{item.class_Id},#{item.people_Num},#{item.class_Col_Id},#{item.class_Spe_Id})
+        </foreach>
+    </insert>
+
     <delete id="deleteClassInfo" parameterType="String">
         delete from online_exam.classes where Id =#{Id}
     </delete>

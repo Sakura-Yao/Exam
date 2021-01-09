@@ -3,10 +3,13 @@ package com.huade.service;
 import com.huade.pojo.Course;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CourseService {
 
     int addCourseInfo(Course course);
+
+    int batchAddCourseInfo(List<Map<String,Object>> courseInfoList) throws Exception;
 
     int deleteCourseInfo (String Id);
 
@@ -14,6 +17,6 @@ public interface CourseService {
 
     List<Course> selectAllCourseInfo(int current, int length);
 
-    List<Course> selectCourseInfo(String cou_Name,String spe_Id,int current,int length);
+    List<Course> selectCourseInfo(String cou_Name,int current,int length);
 
 }

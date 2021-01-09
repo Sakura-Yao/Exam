@@ -313,6 +313,81 @@ public class UtilTools {
 
 
     /**
+     * 制作批量上传班级信息Excel模版
+     * @param in_Path 原模版路径
+     * @return String out_Path 模版导出路径
+     * @since 2021-01-09
+     */
+    public static String MakeBatchAddClassInfo(String in_Path){
+//        String in_Path = "/Users/yaoyuan/Online_Exam/file/batch_mode/userInfo.xlsx";
+        String out_Path = "/Users/yaoyuan/Online_Exam/file/批量添加班级信息.xlsx";
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            in = new FileInputStream(new File(in_Path));
+            out = new FileOutputStream(new File(out_Path));
+            byte[] buffer = new byte[10000];
+            int len;
+            while ((len = in.read(buffer)) > 0) {
+                out.write(buffer,0,len);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(out_Path));
+
+            //创建学院和专业信息数据验证
+            CreateColSpeInfoDataValidation(workbook.getSheet("Col_SpeInfo"),workbook,"Col_SpeInfo");
+
+            FileOutputStream fileOutputStream = new FileOutputStream(out_Path);
+            workbook.write(fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return out_Path;
+    }
+
+
+    /**
+     * 制作批量上传课程Excel模版
+     * @param in_Path 原模版路径
+     * @return String out_Path 模版导出路径
+     * @since 2021-01-09
+     */
+    public static String MakeBatchAddCourseInfo(String in_Path){
+//        String in_Path = "/Users/yaoyuan/Online_Exam/file/courseInfo.xlsx";
+        String out_Path = "/Users/yaoyuan/Online_Exam/file/批量添加课程信息.xlsx";
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            in = new FileInputStream(new File(in_Path));
+            out = new FileOutputStream(new File(out_Path));
+            byte[] buffer = new byte[10000];
+            int len;
+            while ((len = in.read(buffer)) > 0) {
+                out.write(buffer,0,len);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(out_Path));
+
+            FileOutputStream fileOutputStream = new FileOutputStream(out_Path);
+            workbook.write(fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return out_Path;
+    }
+
+
+    /**
      * 批量添加用户信息
      *
      * @param file_Path 批量添加用户信息Excel表文件绝对路径
@@ -400,6 +475,101 @@ public class UtilTools {
         return res_Map;
     }
 
+
+    /**
+     * 批量添加班级信息
+     * @param file_Path 批量添加班级信息Excel表文件绝对路径
+     * @return HashMap {Total_Num; Success_Num; Error_Message; Time_Spent}
+     * @throws BadSqlGrammarException SQL语句语法错误检查对应的mapper.xml
+     * @since 2021-01-09
+     */
+    public static Map<String ,String> BatchAddClassInfo(String file_Path) throws Exception{
+        long start_time = new Date().getTime();
+        String sheet_Name = "Sheet1";
+        ExcelData excelData = new ExcelData(file_Path,sheet_Name);
+        Map<String ,String> res_Map = new HashMap<>();
+        int rows = excelData.sheet.getPhysicalNumberOfRows();
+        Integer success_Num = null;
+        String res_Message = null;
+        List<Map<String,Object>> classInfoList = new ArrayList<>();
+        for (int i = 0; i < rows; i++) {
+            XSSFRow row = excelData.sheet.getRow(i);
+            row.getCell(0).setCellType(Cell.CELL_TYPE_STRING);
+            String Id = UUID.randomUUID().toString().replace("-","");
+            String class_Id = row.getCell(0).getStringCellValue();
+            String people_Num = "0";
+            String class_Col_Id = collegeInfoServiceImpl.selectCol_Id(row.getCell(1).toString());
+            String class_Spe_Id = specialtyInfoServiceImpl.selectSpe_Id(row.getCell(2).toString());
+            Map<String ,Object> classInfo = new HashMap<>();
+            classInfo.put("Id",Id);
+            classInfo.put("class_Id",class_Id);
+            classInfo.put("people_Num",people_Num);
+            classInfo.put("class_Col_Id",class_Col_Id);
+            classInfo.put("class_Spe_Id",class_Spe_Id);
+            classInfoList.add(classInfo);
+        }
+        try {
+            success_Num = classInfoServiceImpl.batchAddClassInfo(classInfoList);
+        } catch (BadSqlGrammarException e){
+            for (Map<String, Object> map : classInfoList) {
+                classInfoServiceImpl.deleteClassInfo(map.get("Id").toString());
+            }
+            res_Message = "内部错误，请联系开发人员！本次批量操作执行，但数据已被恢复。";
+        }
+        long end_time = new Date().getTime();
+        res_Map.put("Total_num", String.valueOf(rows-1));
+        if (success_Num != null) {
+            res_Map.put("Success_num", success_Num.toString());
+            res_Map.put("Error_Message",res_Message);
+        }
+        else {
+            res_Map.put("Success_num", "0");
+            res_Map.put("Error_Message",res_Message);
+        }
+        res_Map.put("Time_Spent", String.valueOf((end_time-start_time)));
+        return res_Map;
+    }
+
+
+    public static Map<String ,String> BatchAddCourseInfo(String file_Path) throws Exception{
+        long start_time = new Date().getTime();
+        String sheet_Name = "Sheet1";
+        ExcelData excelData = new ExcelData(file_Path,sheet_Name);
+        Map<String ,String> res_Map = new HashMap<>();
+        int rows = excelData.sheet.getPhysicalNumberOfRows();
+        Integer success_Num = null;
+        String res_Message = null;
+        List<Map<String,Object>> courseInfoList = new ArrayList<>();
+        for (int i = 0; i < rows; i++) {
+            XSSFRow row = excelData.sheet.getRow(i);
+            String Id = RandomCourseId();
+            String cou_Name = row.getCell(0).toString();
+            Map<String ,Object> courseInfo = new HashMap<>();
+            courseInfo.put("Id",Id);
+            courseInfo.put("cou_Name",cou_Name);
+            courseInfoList.add(courseInfo);
+        }
+        try {
+            success_Num = courseServiceImpl.batchAddCourseInfo(courseInfoList);
+        } catch (BadSqlGrammarException e){
+            for (Map<String, Object> map : courseInfoList) {
+                courseServiceImpl.deleteCourseInfo(map.get("Id").toString());
+            }
+            res_Message = "内部错误，请联系开发人员！本次批量操作执行，但数据已被恢复。";
+        }
+        long end_time = new Date().getTime();
+        res_Map.put("Total_num", String.valueOf(rows-1));
+        if (success_Num != null) {
+            res_Map.put("Success_num", success_Num.toString());
+            res_Map.put("Error_Message",res_Message);
+        }
+        else {
+            res_Map.put("Success_num", "0");
+            res_Map.put("Error_Message",res_Message);
+        }
+        res_Map.put("Time_Spent", String.valueOf((end_time-start_time)));
+        return res_Map;
+    }
 
 
     //获取包含专业最大数目（用于生成批量添加用户信息Excel文件）

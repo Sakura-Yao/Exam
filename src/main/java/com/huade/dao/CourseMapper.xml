@@ -5,8 +5,15 @@
 <mapper namespace="com.huade.dao.CourseMapper">
 
     <insert id="addCourseInfo" parameterType="Course">
-        insert into online_exam.course(Id, cou_Name, spe_Id) VALUES
-        (#{Id},#{cou_Name},#{spe_Id})
+        insert into online_exam.course(Id, cou_Name) VALUES
+        (#{Id},#{cou_Name})
+    </insert>
+
+    <insert id="batchAddCourseInfo" parameterType="java.util.List">
+        insert into online_exam.course(Id, cou_Name) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.Id},#{item.cou_Name})
+        </foreach>
     </insert>
 
     <delete id="deleteCourseInfo" parameterType="String">
@@ -15,7 +22,7 @@
 
     <update id="updateCourseInfo" parameterType="Course">
         update online_exam.course
-        set cou_Name=#{cou_Name},spe_Id=#{spe_Id}
+        set cou_Name=#{cou_Name}
         where Id=#{Id}
     </update>
 
@@ -29,11 +36,10 @@
             <if test="cou_Name != null and cou_Name != ''">
                 and cou_Name like "%"#{cou_Name}"%"
             </if>
-            <if test="spe_Id != null and spe_Id != ''">
-                and spe_Id=#{spe_Id}
-            </if>
         </where>
-        LIMIT #{current},#{length};
+        <if test="current != 0 and length != 0">
+            LIMIT #{current},#{length};
+        </if>
     </select>
 
 </mapper>

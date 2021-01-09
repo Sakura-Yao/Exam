@@ -5,6 +5,7 @@ import com.huade.pojo.ClassInfo;
 import com.huade.pojo.View_ClassInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public class ClassInfoServiceImpl implements ClassInfoService {
 
@@ -17,6 +18,11 @@ public class ClassInfoServiceImpl implements ClassInfoService {
     @Override
     public int addClassInfo(ClassInfo classInfo) {
         return classInfoMapper.addClassInfo(classInfo);
+    }
+
+    @Override
+    public int batchAddClassInfo(List<Map<String, Object>> classInfoList) throws Exception {
+        return classInfoMapper.batchAddClassInfo(classInfoList);
     }
 
     @Override

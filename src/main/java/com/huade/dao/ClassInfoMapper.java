@@ -5,10 +5,13 @@ import com.huade.pojo.View_ClassInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ClassInfoMapper {
 
     int addClassInfo (ClassInfo classInfo);
+
+    int batchAddClassInfo(List<Map<String ,Object>> classInfoList) throws Exception;
 
     int updateClassInfo (ClassInfo classInfo);
 

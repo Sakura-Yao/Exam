@@ -5,9 +5,10 @@ import com.huade.service.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.CellRangeAddressList;
+import org.apache.poi.xssf.usermodel.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -19,17 +20,17 @@ import java.util.*;
 public class UtilTools {
 
     //定义调用的Service方法
-    static ClassInfoServiceImpl classInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("ClassInfoServiceImpl",ClassInfoServiceImpl.class);
-    static CollegeInfoServiceImpl collegeInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("CollegeInfoServiceImpl",CollegeInfoServiceImpl.class);
-    static CourseServiceImpl courseServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("CourseServiceImpl",CourseServiceImpl.class);
-    static QuestionTypeServiceImpl questionTypeServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("QuestionTypeServiceImpl",QuestionTypeServiceImpl.class);
-    static SpecialtyInfoServiceImpl specialtyInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("SpecialtyInfoServiceImpl",SpecialtyInfoServiceImpl.class);
-    static StudentBasicServiceImpl studentBasicServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("StudentBasicServiceImpl",StudentBasicServiceImpl.class);
-    static UserServiceImpl userServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("UserServiceImpl",UserServiceImpl.class);
-    static UserTypeServiceImpl userTypeServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("UserTypeServiceImpl",UserTypeServiceImpl.class);
-    static ClassCourseInfoServiceImpl classCourseInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("ClassCourseInfoServiceImpl",ClassCourseInfoServiceImpl.class);
-    static TeacherBasicServiceImpl teacherBasicServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("TeacherBasicServiceImpl",TeacherBasicServiceImpl.class);
-    static KnowledgeServiceImpl knowledgeServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("KnowledgeServiceImpl",KnowledgeServiceImpl.class);
+    private static ClassInfoServiceImpl classInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("ClassInfoServiceImpl",ClassInfoServiceImpl.class);
+    private static CollegeInfoServiceImpl collegeInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("CollegeInfoServiceImpl",CollegeInfoServiceImpl.class);
+    private static CourseServiceImpl courseServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("CourseServiceImpl",CourseServiceImpl.class);
+    private static QuestionTypeServiceImpl questionTypeServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("QuestionTypeServiceImpl",QuestionTypeServiceImpl.class);
+    private static SpecialtyInfoServiceImpl specialtyInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("SpecialtyInfoServiceImpl",SpecialtyInfoServiceImpl.class);
+    private static StudentBasicServiceImpl studentBasicServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("StudentBasicServiceImpl",StudentBasicServiceImpl.class);
+    private static UserServiceImpl userServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("UserServiceImpl",UserServiceImpl.class);
+    private static UserTypeServiceImpl userTypeServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("UserTypeServiceImpl",UserTypeServiceImpl.class);
+    private static ClassCourseInfoServiceImpl classCourseInfoServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("ClassCourseInfoServiceImpl",ClassCourseInfoServiceImpl.class);
+    private static TeacherBasicServiceImpl teacherBasicServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("TeacherBasicServiceImpl",TeacherBasicServiceImpl.class);
+    private static KnowledgeServiceImpl knowledgeServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("KnowledgeServiceImpl",KnowledgeServiceImpl.class);
 
 
     /**
@@ -49,7 +50,7 @@ public class UtilTools {
      * @return String RandomPassword
      */
     public static String RandomPassword(){
-        StringBuffer RandomPassword = new StringBuffer();
+        StringBuilder RandomPassword = new StringBuilder();
         for (int i = 0; i < 3; i++) {
             int num = (int) (Math.random() * 99) + 1;
             if (num < 10)
@@ -66,7 +67,7 @@ public class UtilTools {
      */
     public static String RandomCourseId(){
         String[] arr = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
-        StringBuffer CourseId = new StringBuffer();
+        StringBuilder CourseId = new StringBuilder();
         for (int i = 0; i < 2; i++) {
             CourseId.append(arr[(int) ((Math.random())*26)]);
         }
@@ -81,8 +82,8 @@ public class UtilTools {
 
     /**
      * 字符串转字符数组
-     * @param str
-     * @return
+     * @param str 数组
+     * @return String
      */
     public static String[] StringToStringArr(String str){
         return str.split(",");
@@ -97,7 +98,7 @@ public class UtilTools {
      * @param chapter_Num 章节号
      * @return String Id（正确） String 'Error'（错误）
      */
-    public static String GetLevel_1_Id(String cou_Id,String chapter_Num){
+    private static String GetLevel_1_Id(String cou_Id,String chapter_Num){
         List<View_Knowledge> knowledges = knowledgeServiceImpl.selectKnowledge("", cou_Id, "1", chapter_Num, "", 0, 1000);
         if (knowledges.size() == 1){
             return knowledges.get(0).getId();
@@ -108,11 +109,52 @@ public class UtilTools {
     }
 
     /**
+     * 批量添加知识点信息
+     * @param filePath 文件名
+     * @param sheetName 表名
+     * @return Map集合（总数目'Total_num' 成功数目'Success_num' 失败数目'Error_num' 所用时间'Time_spent'）
+     */
+    public static Map batch_knowledge (String filePath,String sheetName){
+        Map<String,String> map = new HashMap<String, String>();
+        ExcelData excelData = new ExcelData(filePath,sheetName);
+        Integer Rows = excelData.sheet.getPhysicalNumberOfRows();
+        Integer Success_num = 0;
+        Integer Error_num = 0;
+        long start_time = new Date().getTime();
+        //首先执行一遍逐行获取行列信息，以检查Excel表的完整性和可阅读性
+        for (int i = 0; i < Rows; i++) {
+            XSSFRow row = excelData.sheet.getRow(i);
+        }
+        //然后在进行批量导入数据
+        for (int i = 1; i < Rows; i++) {
+            XSSFRow row = excelData.sheet.getRow(i);
+            String cou_Id = row.getCell(0).toString();
+            String kwl_Level = row.getCell(1).toString();
+            String chapter_Num = row.getCell(2).toString();
+            String section_Num = row.getCell(3).toString();
+            String kwl_Name = row.getCell(4).toString();
+            String uuid = UUID.randomUUID().toString().replace("-","");
+            Knowledge knowledge = new Knowledge(uuid,cou_Id,kwl_Level,chapter_Num,section_Num,kwl_Name,"");
+            if (UtilTools.AddKnowledge(knowledge)==1)
+                Success_num++;
+            else
+                Error_num++;
+        }
+        long end_time = new Date().getTime();
+        Rows = Rows - 1;
+        map.put("Total_num",Rows.toString());
+        map.put("Success_num",Success_num.toString());
+        map.put("Error_num",Error_num.toString());
+        map.put("Time_spent",(end_time-start_time)+"");
+        return map;
+    }
+
+    /**
      * 添加知识点信息
      * @param knowledge 实体类：知识点信息
      * @return 成功：int 1  失败：int 0
      */
-    public static int AddKnowledge(Knowledge knowledge){
+    private static int AddKnowledge(Knowledge knowledge){
         if (knowledgeServiceImpl.selectKnowledge("", knowledge.getCou_Id(), knowledge.getKwl_Level(), knowledge.getChapter_Num(), knowledge.getSection_Num(), 0, 1000).size() == 0) {
             if (knowledge.getKwl_Level().equals("2")) {
                 if (!(UtilTools.GetLevel_1_Id(knowledge.getCou_Id(), knowledge.getChapter_Num()).equals("Error"))) {
@@ -172,12 +214,70 @@ public class UtilTools {
     }
 
     /**
+     * 创建用户类型数据验证（创建批量导入模版使用）
+     * @param sheet 所需要操作的表
+     * @since 2021-01-09
+     */
+    private static void CreateUserTypeDataValidation(XSSFSheet sheet){
+        int index = 0;
+        String data[] = new String[userTypeServiceImpl.selectAllUserType().size()];
+        for (User_Type user_type : userTypeServiceImpl.selectAllUserType()) {
+            data[index] = user_type.getUser_Type();
+            index++;
+        }
+        for (int i = 0; i < data.length; i++) {
+            sheet.createRow(i).createCell(0).setCellValue(data[i]);
+        }
+    }
+
+    /**
+     * 创建学院专业信息数据验证
+     * @param sheet 所需要操作的表
+     * @param workbook 工作簿
+     * @param sheetName 表名
+     * @since 2021-01-09
+     */
+    private static void CreateColSpeInfoDataValidation(XSSFSheet sheet, Workbook workbook,String sheetName){
+        String data[][] = UtilTools.GetCol_Spe_Name();
+        String college_Id[] = new String [collegeInfoServiceImpl.selectAllCollegeInfo().size()];
+        int index = 0;
+        for (CollegeInfo collegeInfo : collegeInfoServiceImpl.selectAllCollegeInfo()) {
+            college_Id[index] = collegeInfo.getId();
+            index++;
+        }
+        for (int i = 0; i < UtilTools.getCellMaxNum()+1; i++) {
+            Row row = sheet.createRow(i);
+            for (int j = 0; j < collegeInfoServiceImpl.selectAllCollegeInfo().size(); j++) {
+                row.createCell(j).setCellValue(data[i][j]);
+            }
+        }
+        for (int i = 0; i < collegeInfoServiceImpl.selectAllCollegeInfo().size(); i++) {
+            Name name = workbook.createName();
+            name.setNameName(sheet.getRow(0).getCell(i).toString());
+            String formula = sheetName+"!"+UtilTools.getRange(i,2,specialtyInfoServiceImpl.selectSpecialty_col_Id(college_Id[i]).size()+1);
+            name.setRefersToFormula(formula);
+        }
+    }
+
+    /**
+     * 创建班级信息数据验证
+     * @param sheet 所需要操作的表
+     * @since 2021-01-09
+     */
+    private static void CreateClassInfoDataValidation(XSSFSheet sheet){
+        String [] classInfo = UtilTools.getClassInfo();
+        for (int i = 0; i < classInfo.length; i++) {
+            sheet.createRow(i).createCell(0).setCellValue(classInfo[i]);
+        }
+    }
+
+    /**
      * 制作批量添加用户信息的Excel模版
      *
      * @return 返回生成Excel的绝对路径
      */
-    public static String MakeBatchAddUserMode(){
-        String in_Path = "/Users/yaoyuan/Online_Exam/file/batch_mode/userInfo.xlsx";
+    public static String MakeBatchAddUserMode(String in_Path){
+        //String in_Path = "/Users/yaoyuan/Online_Exam/file/batch_mode/userInfo.xlsx";
         String out_Path = "/Users/yaoyuan/Online_Exam/file/批量添加用户信息.xlsx";
         InputStream in = null;
         OutputStream out = null;
@@ -192,43 +292,17 @@ public class UtilTools {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int index = 0;
-        String data[] = new String[userTypeServiceImpl.selectAllUserType().size()];
-        for (User_Type user_type : userTypeServiceImpl.selectAllUserType()) {
-            data[index] = user_type.getUser_Type();
-            index++;
-        }
-        index = 0;
-        String college_Id[] = new String [collegeInfoServiceImpl.selectAllCollegeInfo().size()];
-        for (CollegeInfo collegeInfo : collegeInfoServiceImpl.selectAllCollegeInfo()) {
-            college_Id[index] = collegeInfo.getId();
-            index++;
-        }
         try {
             XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(out_Path));
-            XSSFSheet sheet = workbook.getSheet("Sheet2");
-            for (int i = 0; i < data.length; i++) {
-                sheet.createRow(i).createCell(0).setCellValue(data[i]);
-            }
-            XSSFSheet sheet3 = workbook.getSheet("Sheet3");
-            String[][] res = UtilTools.GetCol_Spe_Name();
-            for (int i = 0; i < UtilTools.getCellMaxNum()+1; i++) {
-                Row row = sheet3.createRow(i);
-                for (int j = 0; j < collegeInfoServiceImpl.selectAllCollegeInfo().size(); j++) {
-                    row.createCell(j).setCellValue(res[i][j]);
-                }
-            }
-            for (int i = 0; i < collegeInfoServiceImpl.selectAllCollegeInfo().size(); i++) {
-                Name name = workbook.createName();
-                name.setNameName(sheet3.getRow(0).getCell(i).toString());
-                String formula = "Sheet3!"+UtilTools.getRange(i,2,specialtyInfoServiceImpl.selectSpecialty_col_Id(college_Id[i]).size()+1);
-                name.setRefersToFormula(formula);
-            }
-            XSSFSheet sheet4 = workbook.getSheet("Sheet4");
-            String [] classInfo = UtilTools.getClassInfo();
-            for (int i = 0; i < classInfo.length; i++) {
-                sheet4.createRow(i).createCell(0).setCellValue(classInfo[i]);
-            }
+            //创建用户类型数据验证（下拉菜单选项）
+            CreateUserTypeDataValidation(workbook.getSheet("UserType"));
+
+            //创建学院和专业信息数据验证
+            CreateColSpeInfoDataValidation(workbook.getSheet("Col_SpeInfo"),workbook,"Col_SpeInfo");
+
+            //创建班级信息数据验证
+            CreateClassInfoDataValidation(workbook.getSheet("ClassInfo"));
+
             FileOutputStream fileOutputStream = new FileOutputStream(out_Path);
             workbook.write(fileOutputStream);
             fileOutputStream.flush();
@@ -331,7 +405,7 @@ public class UtilTools {
 
 
     //获取包含专业最大数目（用于生成批量添加用户信息Excel文件）
-    public static int getCellMaxNum(){
+    private static int getCellMaxNum(){
         int index = 0;
         String college_Id[] = new String [collegeInfoServiceImpl.selectAllCollegeInfo().size()];
         String college[] = new String [collegeInfoServiceImpl.selectAllCollegeInfo().size()];
@@ -349,7 +423,7 @@ public class UtilTools {
     }
 
     //获取全部学院和专业的名称信息（用于生成批量添加用户信息Excel文件）
-    public static String[][] GetCol_Spe_Name(){
+    private static String[][] GetCol_Spe_Name(){
         int index = 0;
         int speMaxNum = getCellMaxNum();
         String college_Id[] = new String [collegeInfoServiceImpl.selectAllCollegeInfo().size()];
@@ -397,7 +471,7 @@ public class UtilTools {
 
 
     //获取班级信息
-    public static String[] getClassInfo(){
+    private static String[] getClassInfo(){
         int size = classInfoServiceImpl.selectAllClassInfo().size();
         String[] classInfo = new String [size];
         int index = 0;

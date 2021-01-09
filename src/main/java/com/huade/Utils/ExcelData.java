@@ -91,46 +91,46 @@ public class ExcelData {
 
 
 
-    /**
-     * 批量添加知识点信息
-     * @param filePath 文件名
-     * @param sheetName 表名
-     * @return Map集合（总数目'Total_num' 成功数目'Success_num' 失败数目'Error_num' 所用时间'Time_spent'）
-     */
-    public static Map batch_knowledge (String filePath,String sheetName){
-        Map<String,String> map = new HashMap<String, String>();
-        ExcelData excelData = new ExcelData(filePath,sheetName);
-        Integer Rows = excelData.sheet.getPhysicalNumberOfRows();
-        Integer Success_num = 0;
-        Integer Error_num = 0;
-        long start_time = new Date().getTime();
-        //首先执行一遍逐行获取行列信息，以检查Excel表的完整性和可阅读性
-        for (int i = 0; i < Rows; i++) {
-            XSSFRow row = excelData.sheet.getRow(i);
-        }
-        //然后在进行批量导入数据
-        for (int i = 1; i < Rows; i++) {
-            XSSFRow row = excelData.sheet.getRow(i);
-            String cou_Id = row.getCell(0).toString();
-            String kwl_Level = row.getCell(1).toString();
-            String chapter_Num = row.getCell(2).toString();
-            String section_Num = row.getCell(3).toString();
-            String kwl_Name = row.getCell(4).toString();
-            String uuid = UUID.randomUUID().toString().replace("-","");
-            Knowledge knowledge = new Knowledge(uuid,cou_Id,kwl_Level,chapter_Num,section_Num,kwl_Name,"");
-            if (UtilTools.AddKnowledge(knowledge)==1)
-                Success_num++;
-            else
-                Error_num++;
-        }
-        long end_time = new Date().getTime();
-        Rows = Rows - 1;
-        map.put("Total_num",Rows.toString());
-        map.put("Success_num",Success_num.toString());
-        map.put("Error_num",Error_num.toString());
-        map.put("Time_spent",(end_time-start_time)+"");
-        return map;
-    }
+//    /**
+//     * 批量添加知识点信息
+//     * @param filePath 文件名
+//     * @param sheetName 表名
+//     * @return Map集合（总数目'Total_num' 成功数目'Success_num' 失败数目'Error_num' 所用时间'Time_spent'）
+//     */
+//    public static Map batch_knowledge (String filePath,String sheetName){
+//        Map<String,String> map = new HashMap<String, String>();
+//        ExcelData excelData = new ExcelData(filePath,sheetName);
+//        Integer Rows = excelData.sheet.getPhysicalNumberOfRows();
+//        Integer Success_num = 0;
+//        Integer Error_num = 0;
+//        long start_time = new Date().getTime();
+//        //首先执行一遍逐行获取行列信息，以检查Excel表的完整性和可阅读性
+//        for (int i = 0; i < Rows; i++) {
+//            XSSFRow row = excelData.sheet.getRow(i);
+//        }
+//        //然后在进行批量导入数据
+//        for (int i = 1; i < Rows; i++) {
+//            XSSFRow row = excelData.sheet.getRow(i);
+//            String cou_Id = row.getCell(0).toString();
+//            String kwl_Level = row.getCell(1).toString();
+//            String chapter_Num = row.getCell(2).toString();
+//            String section_Num = row.getCell(3).toString();
+//            String kwl_Name = row.getCell(4).toString();
+//            String uuid = UUID.randomUUID().toString().replace("-","");
+//            Knowledge knowledge = new Knowledge(uuid,cou_Id,kwl_Level,chapter_Num,section_Num,kwl_Name,"");
+//            if (UtilTools.AddKnowledge(knowledge)==1)
+//                Success_num++;
+//            else
+//                Error_num++;
+//        }
+//        long end_time = new Date().getTime();
+//        Rows = Rows - 1;
+//        map.put("Total_num",Rows.toString());
+//        map.put("Success_num",Success_num.toString());
+//        map.put("Error_num",Error_num.toString());
+//        map.put("Time_spent",(end_time-start_time)+"");
+//        return map;
+//    }
 //
 //
 //    //批量添加学生信息
@@ -173,7 +173,7 @@ public class ExcelData {
 
 
     public static void main(String[] args) {
-        Map sheet1 = batch_knowledge("/Users/yaoyuan/Desktop/SpringBoot.xlsx", "Sheet1");
+        Map sheet1 = UtilTools.batch_knowledge("/Users/yaoyuan/Online_Exam/SpringBoot.xlsx", "Sheet1");
         System.out.println(sheet1);
     }
 }

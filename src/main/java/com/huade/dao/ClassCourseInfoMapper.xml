@@ -15,8 +15,8 @@
 
     <update id="updateClassCourseInfo" parameterType="ClassCourseInfo">
         update online_exam.class_course
-        set classes_Id=#{new_ClassCourseInfoMapper.classes_Id},user_Id=#{new_ClassCourseInfoMapper.user_Id},cou_Id=#{new_ClassCourseInfoMapper.cou_Id}
-        where classes_Id=#{old_ClassCourseInfoMapper.classes_Id} and user_Id=#{old_ClassCourseInfoMapper.user_Id} and cou_Id=#{old_ClassCourseInfoMapper.cou_Id}
+        set classes_Id=#{new_ClassCourseInfo.classes_Id},user_Id=#{new_ClassCourseInfo.user_Id},cou_Id=#{new_ClassCourseInfo.cou_Id}
+        where classes_Id=#{old_ClassCourseInfo.classes_Id} and user_Id=#{old_ClassCourseInfo.user_Id} and cou_Id=#{old_ClassCourseInfo.cou_Id}
     </update>
 
     <select id="selectAllClassCourseInfo" resultType="View_Teacher_Class_Info">

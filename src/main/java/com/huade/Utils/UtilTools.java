@@ -271,22 +271,26 @@ public class UtilTools {
 
     /**
      * 制作批量添加用户信息的Excel模版
-     *
+     * @param in_Path 初始Excel模版的绝对路径
      * @return 返回生成Excel的绝对路径
+     * @since 2021-01-10
      */
     public static String MakeBatchAddUserMode(String in_Path){
         //String in_Path = "/Users/yaoyuan/Online_Exam/file/batch_mode/userInfo.xlsx";
         String out_Path = "/Users/yaoyuan/Online_Exam/file/批量添加用户信息.xlsx";
+        //文件读写操作
         InputStream in = null;
         OutputStream out = null;
         try {
             in = new FileInputStream(new File(in_Path));
             out = new FileOutputStream(new File(out_Path));
+            //设定每次进行读写的字符数量，即每次读写区块的大小
             byte[] buffer = new byte[10000];
             int len;
             while ((len = in.read(buffer)) > 0) {
                 out.write(buffer,0,len);
             }
+            //抛出读写异常 默认状态
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -301,10 +305,13 @@ public class UtilTools {
             //创建班级信息数据验证
             CreateClassInfoDataValidation(workbook.getSheet("ClassInfo"));
 
+            //创建写出Excel模版文件的输出流
             FileOutputStream fileOutputStream = new FileOutputStream(out_Path);
+            //为Excel模版文件进行写入工作表
             workbook.write(fileOutputStream);
             fileOutputStream.flush();
             fileOutputStream.close();
+            //抛出读写异常 默认状态
         } catch (IOException e) {
             e.printStackTrace();
         }

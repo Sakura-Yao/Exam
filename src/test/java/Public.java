@@ -28,18 +28,18 @@ public class Public {
     }
 
     //定义调用的Service方法
-    ClassInfoServiceImpl classInfoServiceImpl = (ClassInfoServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("ClassInfoServiceImpl");
-    CollegeInfoServiceImpl collegeInfoServiceImpl = (CollegeInfoServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("CollegeInfoServiceImpl");
-    CourseServiceImpl courseServiceImpl = (CourseServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("CourseServiceImpl");
-    QuestionTypeServiceImpl questionTypeServiceImpl = (QuestionTypeServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("QuestionTypeServiceImpl");
-    SpecialtyInfoServiceImpl specialtyInfoServiceImpl = (SpecialtyInfoServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("SpecialtyInfoServiceImpl");
-    StudentBasicServiceImpl studentBasicServiceImpl = (StudentBasicServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("StudentBasicServiceImpl");
-    UserServiceImpl userServiceImpl = (UserServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("UserServiceImpl");
-    UserTypeServiceImpl userTypeServiceImpl = (UserTypeServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("UserTypeServiceImpl");
-    ClassCourseInfoServiceImpl classCourseInfoServiceImpl = (ClassCourseInfoServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("ClassCourseInfoServiceImpl");
-    TeacherBasicServiceImpl teacherBasicServiceImpl = (TeacherBasicServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("TeacherBasicServiceImpl");
-    KnowledgeServiceImpl knowledgeServiceImpl = (KnowledgeServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("KnowledgeServiceImpl");
-    TestUEditorServiceImpl testUEditorServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("TestUEditorServiceImpl",TestUEditorServiceImpl.class);
+    private ClassInfoServiceImpl classInfoServiceImpl = (ClassInfoServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("ClassInfoServiceImpl");
+    private CollegeInfoServiceImpl collegeInfoServiceImpl = (CollegeInfoServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("CollegeInfoServiceImpl");
+    private CourseServiceImpl courseServiceImpl = (CourseServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("CourseServiceImpl");
+    private QuestionTypeServiceImpl questionTypeServiceImpl = (QuestionTypeServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("QuestionTypeServiceImpl");
+    private SpecialtyInfoServiceImpl specialtyInfoServiceImpl = (SpecialtyInfoServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("SpecialtyInfoServiceImpl");
+    private StudentBasicServiceImpl studentBasicServiceImpl = (StudentBasicServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("StudentBasicServiceImpl");
+    private UserServiceImpl userServiceImpl = (UserServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("UserServiceImpl");
+    private UserTypeServiceImpl userTypeServiceImpl = (UserTypeServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("UserTypeServiceImpl");
+    private ClassCourseInfoServiceImpl classCourseInfoServiceImpl = (ClassCourseInfoServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("ClassCourseInfoServiceImpl");
+    private TeacherBasicServiceImpl teacherBasicServiceImpl = (TeacherBasicServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("TeacherBasicServiceImpl");
+    private KnowledgeServiceImpl knowledgeServiceImpl = (KnowledgeServiceImpl) new ClassPathXmlApplicationContext("applicationContext.xml").getBean("KnowledgeServiceImpl");
+    private TestUEditorServiceImpl testUEditorServiceImpl = new ClassPathXmlApplicationContext("applicationContext.xml").getBean("TestUEditorServiceImpl",TestUEditorServiceImpl.class);
 
     public List<Sort_Knowledge> Sort_Level_1 (List<Sort_Knowledge> list_know){
         for (int i = 0; i < list_know.size()-1; i++) {

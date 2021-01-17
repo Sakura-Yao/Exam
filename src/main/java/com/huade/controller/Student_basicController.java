@@ -31,8 +31,24 @@ public class Student_basicController {
     private UserServiceImpl userService;
 
 
-    @RequestMapping("/addStudentBasic")
-    @ResponseBody
+    /**
+     * 添加学生基本信息Controller
+     * @param session 登录状态
+     * @param user_Id 学生Id
+     * @param password 密码
+     * @param user_Name 姓名
+     * @param user_Type 类型
+     * @param user_Sex 性别
+     * @param user_Mobile 手机号码
+     * @param stu_ClassId 所属班级
+     * @param stu_College 所属院系
+     * @param stu_Specialty 所属专业
+     * @return Json
+     * @throws JsonProcessingException
+     * @since 后面加上最后一次修改的日期，作为版本控制
+     */
+    @RequestMapping("/addStudentBasic") //接口注解
+    @ResponseBody //返回值为字符串
     public String addStudentBasic (HttpSession session, @Param("user_Id") String user_Id,
                               @Param("password") String password,
                               @Param("user_Name") String user_Name,
@@ -42,13 +58,18 @@ public class Student_basicController {
                               @Param("stu_ClassId") String stu_ClassId,
                               @Param("stu_College")String stu_College,
                               @Param("stu_Specialty")String stu_Specialty) throws JsonProcessingException {
+        //创建Json对象和SpringMVC返回类
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
+        //判断登录状态
         if (session.getAttribute("login_session") != null) {
+            //将前端发送的信息整合为user实体类
             User user = new User(user_Id,password,user_Name,user_Type,user_Sex,user_Mobile);
+            //将前端发送的信息整合为Student_Basic实体类
             Student_Basic student_basic = new Student_Basic(user_Id,stu_ClassId,stu_College,stu_Specialty);
-
+            //判断学生信息和用户信息是否添加成功
             if (studentBasicService.addStudentBasic(student_basic)==1 && userService.addUser(user) == 1){
+                //生成返回的json信息
                 object.put("code",1);
                 object.put("message","添加学生基础信息成功！");
                 return mapper.writeValueAsString(object);
@@ -62,6 +83,7 @@ public class Student_basicController {
         else {
             object.put("code",-1);
             object.put("message","登陆状态失效！请重新登陆！");
+            //SpringMVC返回json类型字符串
             return mapper.writeValueAsString(object);
         }
     }

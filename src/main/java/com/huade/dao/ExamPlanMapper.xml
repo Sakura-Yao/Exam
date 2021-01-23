@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.ExamPlanMapper">
+
+    <insert id="addExamPlan" parameterType="ExamPlan">
+        insert into online_exam.exam_plan(Id, cou_Id, class_Id, mode, proposition_teacher, "time", col_Id, spe_Id) VALUES
+        (#{Id},#{cou_Id},#{class_Id},#{mode},#{proposition_Teacher},#{time},#{col_Id},#{spe_Id});
+    </insert>
+
+    <delete id="deleteExamPlan" parameterType="String">
+        delete from online_exam.exam_plan where Id=#{Id};
+    </delete>
+
+    <update id="updateExamPlan" parameterType="ExamPlan">
+        update online_exam.exam_plan
+        set cou_Id=#{cou_Id},class_Id=#{class_Id},mode=#{mode},proposition_teacher=#{proposition_Teacher},
+        "time"=#{"time"},col_Id=#{col_Id},spe_Id=#{spe_Id}
+        where Id=#{Id};
+    </update>
+
+    <select id="selectExamPlan" resultType="ExamPlan">
+        select * from online_exam.exam_plan
+        <where>
+            <if test="Id != null and Id != ''">
+                and Id=#{Id}
+            </if>
+            <if test="class_Id != null and class_Id != ''">
+                and class_Id=#{class_Id}
+            </if>
+            <if test="mode != null and mode != ''">
+                and mode=#{mode}
+            </if>
+            <if test="proposition_teacher != null and proposition_teacher != ''">
+                and proposition_teacher=#{proposition_Teacher}
+            </if>
+            <if test="time != null and time != ''">
+                and "time"=#{time}
+            </if>
+            <if test="col_Id != null and col_Id != ''">
+                and col_Id=#{col_Id}
+            </if>
+            <if test="spe_Id != null and spe_Id != ''">
+                and spe_Id=#{spe_Id}
+            </if>
+        </where>
+        <if test="current != 0 and length != 0">
+            LIMIT #{current},#{length};
+        </if>
+    </select>
+
+</mapper>

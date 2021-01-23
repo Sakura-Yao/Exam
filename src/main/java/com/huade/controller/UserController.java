@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -46,7 +47,7 @@ public class UserController {
 
     @RequestMapping("/addUser")
     @ResponseBody
-    public String addUser (HttpSession session, @Param("user_Id") String user_Id, @Param("password") String password, @Param("user_Name") String user_Name, @Param("user_Type") String user_Type, @Param("user_Sex")String user_Sex, @Param("user_Mobile") String user_Mobile) throws JsonProcessingException{
+    public String addUser (HttpSession session, @RequestParam("user_Id") String user_Id, @RequestParam("password") String password, @RequestParam("user_Name") String user_Name, @RequestParam("user_Type") String user_Type, @RequestParam("user_Sex")String user_Sex, @RequestParam("user_Mobile") String user_Mobile) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         if (session.getAttribute("login_session") != null) {
@@ -71,7 +72,7 @@ public class UserController {
 
     @RequestMapping("/DeleteUser")
     @ResponseBody
-    public String DeleteUser (HttpSession session,@Param("user_id")String user_id) throws JsonProcessingException{
+    public String DeleteUser (HttpSession session,@RequestParam("user_id")String user_id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         if (session.getAttribute("login_session") != null) {
@@ -95,12 +96,12 @@ public class UserController {
 
     @RequestMapping("/UpdateUser")
     @ResponseBody
-    public String UpdateUser (HttpSession session,@Param("user_id")String user_id,
-                              @Param("password")String password,
-                              @Param("user_Name")String user_Name,
-                              @Param("user_Type")String user_Type,
-                              @Param("user_Sex")String user_Sex,
-                              @Param("user_Mobile")String user_Mobile) throws JsonProcessingException{
+    public String UpdateUser (HttpSession session,@RequestParam("user_id")String user_id,
+                              @RequestParam("password")String password,
+                              @RequestParam("user_Name")String user_Name,
+                              @RequestParam("user_Type")String user_Type,
+                              @RequestParam("user_Sex")String user_Sex,
+                              @RequestParam("user_Mobile")String user_Mobile) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         User user = new User(user_id, password, user_Name, user_Type, user_Sex, user_Mobile);

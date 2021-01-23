@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -25,9 +26,10 @@ public class ClassInfoController {
     @Qualifier("ClassInfoServiceImpl")
     private ClassInfoService classInfoService;
 
+    //ip:part/classInfo/addClassInfo
     @RequestMapping("/addClassInfo")
     @ResponseBody
-    public String addClassInfo(HttpSession session,@Param("Id") String Id,@Param("class_Id") String class_Id,@Param("people_Num") String people_Num,@Param("class_Col_Id") String class_Col_Id,@Param("class_Spe_Id") String class_Spe_Id) throws JsonProcessingException{
+    public String addClassInfo(HttpSession session, @RequestParam("Id") String Id, @RequestParam("class_Id") String class_Id, @RequestParam("people_Num") String people_Num, @RequestParam("class_Col_Id") String class_Col_Id, @RequestParam("class_Spe_Id") String class_Spe_Id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         ClassInfo classInfo = new ClassInfo(Id,class_Id,people_Num,class_Col_Id,class_Spe_Id);
@@ -49,7 +51,7 @@ public class ClassInfoController {
     }
     @RequestMapping("/updateClassInfo")
     @ResponseBody
-    public String updateClassInfo(HttpSession session,@Param("Id") String Id,@Param("class_Id") String class_Id,@Param("people_Num") String people_Num,@Param("class_Col_Id") String class_Col_Id,@Param("class_Spe_Id") String class_Spe_Id) throws JsonProcessingException{
+    public String updateClassInfo(HttpSession session,@RequestParam("Id") String Id,@RequestParam("class_Id") String class_Id,@RequestParam("people_Num") String people_Num,@RequestParam("class_Col_Id") String class_Col_Id,@RequestParam("class_Spe_Id") String class_Spe_Id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         ClassInfo classInfo = new ClassInfo(Id,class_Id,people_Num,class_Col_Id,class_Spe_Id);
@@ -71,7 +73,7 @@ public class ClassInfoController {
     }
     @RequestMapping("/deleteClassInfo")
     @ResponseBody
-    public String deleteClassInfo(HttpSession session, @Param("Id") String Id) throws JsonProcessingException{
+    public String deleteClassInfo(HttpSession session, @RequestParam("Id") String Id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         if(session.getAttribute("login_session") != null){

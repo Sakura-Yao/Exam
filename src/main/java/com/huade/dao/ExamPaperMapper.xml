@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.ExamPaperMapper">
+
+    <insert id="addExamPaper" parameterType="Exam_Paper">
+        insert into online_exam.exam_paper(Id, exam_Id, question_Id, score)
+        VALUES (#{Id},#{exam_Id},#{question_Id},#{score});
+    </insert>
+
+    <delete id="deleteExamPaper" parameterType="String">
+        delete from online_exam.exam_paper where Id=#{Id};
+    </delete>
+
+    <update id="updateExamPaper" parameterType="Exam_Paper">
+        update online_exam.exam_paper
+        set exam_Id=#{exam_Id},question_Id=#{question_Id},score=#{score}
+        where Id=#{Id};
+    </update>
+
+    <select id="selectExamPaper" resultType="Exam_Paper">
+        select * from online_exam.exam_paper
+        <where>
+            <if test="exam_Id != null and exam_Id != ''">
+                and exam_Id = #{exam_Id}
+            </if>
+        </where>
+    </select>
+
+</mapper>

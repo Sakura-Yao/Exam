@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.ExamGenerateMapper">
+
+    <insert id="addExamGenerate" parameterType="Exam_Generate">
+        insert into online_exam.exam_generate (id, exam_plan_id, exam_id)
+        values (#{id},#{exam_Plan_Id},#{exam_Id});
+    </insert>
+
+    <delete id="deleteExamGenerate" parameterType="String">
+        delete from online_exam.exam_generate where Id = #{Id};
+    </delete>
+
+    <update id="updateExamGenerate" parameterType="Exam_Generate">
+        update online_exam.exam_generate
+        set exam_plan_Id=#{exam_Plan_Id},exam_Id=#{exam_Id}
+        where Id=#{Id};
+    </update>
+
+    <select id="selectExamGenerate" resultType="Exam_Generate">
+        select * from online_exam.exam_generate
+        <where>
+            <if test="Id != null and Id != ''">
+                and Id = #{Id}
+            </if>
+            <if test="exam_Plan_Id != null and exam_Plan_Id != ''">
+                and exam_Plan_Id=#{exam_Plan_Id}
+            </if>
+        </where>
+        <if test="current != 0 and length != 0">
+            LIMIT #{current},#{length};
+        </if>
+    </select>
+
+</mapper>

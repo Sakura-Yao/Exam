@@ -22,19 +22,19 @@
     <select id="selectQuestionInfo" resultType="QuestionInfo">
         select * from online_exam.question
         <where>
-            <if test="question_Id != null and question_Id''">
+            <if test="question_Id != null and question_Id!=''">
                 and question_Id = #{question_Id}
             </if>
-            <if test="cou_Id != null and cou_Id''">
+            <if test="cou_Id != null and cou_Id!=''">
                 and cou_Id = #{cou_Id}
             </if>
-            <if test="type_Id != null and type_Id''">
+            <if test="type_Id != null and type_Id!=''">
                 and type_Id = #{type_Id}
             </if>
-            <if test="subject != null and subject''">
+            <if test="subject != null and subject!=''">
                 and `subject` = #{subject}
             </if>
-            <if test="degree != null and degree''">
+            <if test="degree != null and degree!=''">
                 and question_Id = #{question_Id}
             </if>
         </where>

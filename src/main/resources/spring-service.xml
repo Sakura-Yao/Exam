@@ -62,6 +62,22 @@
         <property name="questionInfoMapper" ref="questionInfoMapper"/>
     </bean>
 
+    <bean id="ExamGenerateServiceImpl" class="com.huade.service.ExamGenerateServiceImpl">
+        <property name="examGenerateMapper" ref="examGenerateMapper"/>
+    </bean>
+
+    <bean id="ExamPaperServiceImpl" class="com.huade.service.ExamPaperServiceImpl">
+        <property name="examPaperMapper" ref="examPaperMapper"/>
+    </bean>
+
+    <bean id="ExamPlanServiceImpl" class="com.huade.service.ExamPlanServiceImpl">
+        <property name="examPlanMapper" ref="examPlanMapper"/>
+    </bean>
+
+    <bean id="QuestionTimesServiceImpl" class="com.huade.service.QuestionTimesServiceImpl">
+        <property name="questionTimesMapper" ref="questionTimesMapper"/>
+    </bean>
+
 <!--    配置事物管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 <!--        注册数据库连接池-->

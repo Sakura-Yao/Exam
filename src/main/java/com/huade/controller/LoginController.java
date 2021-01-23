@@ -35,7 +35,7 @@ public class LoginController {
 
     @RequestMapping("/UserLogin")
     @ResponseBody
-    public String UserLogin(HttpSession session, @Param("user_Id")String user_Id, @Param("password")String password)throws JsonProcessingException{
+    public String UserLogin(HttpSession session, @RequestParam("user_Id")String user_Id, @RequestParam("password")String password)throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         if (userService.Login(user_Id, UtilTools.Encrypted_MD5(password)) != null){

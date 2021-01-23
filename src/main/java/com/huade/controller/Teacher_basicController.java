@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -31,14 +32,14 @@ public class Teacher_basicController {
 
     @RequestMapping("/addTeacherBasicInfo")
     @ResponseBody
-    public String addTeacher (HttpSession session, @Param("user_Id") String user_Id,
-                              @Param("password") String password,
-                              @Param("user_Name") String user_Name,
-                              @Param("user_Type") String user_Type,
-                              @Param("user_Sex")String user_Sex,
-                              @Param("user_Mobile") String user_Mobile,
-                              @Param("college_Id") String college_Id,
-                              @Param("specialty_Id")String specialty_Id) throws JsonProcessingException {
+    public String addTeacher (HttpSession session, @RequestParam("user_Id") String user_Id,
+                              @RequestParam("password") String password,
+                              @RequestParam("user_Name") String user_Name,
+                              @RequestParam("user_Type") String user_Type,
+                              @RequestParam("user_Sex")String user_Sex,
+                              @RequestParam("user_Mobile") String user_Mobile,
+                              @RequestParam("college_Id") String college_Id,
+                              @RequestParam("specialty_Id")String specialty_Id) throws JsonProcessingException {
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         if (session.getAttribute("login_session") != null) {
@@ -64,7 +65,7 @@ public class Teacher_basicController {
 
     @RequestMapping("/deleteTeacherBasicInfo")
     @ResponseBody
-    public String deleteTeacherBasicInfo(HttpSession session, @Param("user_Id")String user_Id) throws JsonProcessingException {
+    public String deleteTeacherBasicInfo(HttpSession session, @RequestParam("user_Id")String user_Id) throws JsonProcessingException {
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         if (session.getAttribute("login_session") != null) {
@@ -89,9 +90,9 @@ public class Teacher_basicController {
     @RequestMapping("/updateTeacherBasicInfo")
     @ResponseBody
     public String updateTeacherBasicInfo (HttpSession session,
-                                          @Param("user_Id") String user_Id,
-                                          @Param("college_Id") String college_Id,
-                                          @Param("specialty_Id")String specialty_Id) throws JsonProcessingException{
+                                          @RequestParam("user_Id") String user_Id,
+                                          @RequestParam("college_Id") String college_Id,
+                                          @RequestParam("specialty_Id")String specialty_Id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         if (session.getAttribute("login_session") != null) {
@@ -116,11 +117,11 @@ public class Teacher_basicController {
 
     @RequestMapping("/selectTeacher")
     @ResponseBody
-    public String selectTeacher (HttpSession session,@Param("user_Id")String user_Id,
-                                 @Param("college_Id")String college_Id,
-                                 @Param("specialty_Id")String specialty_Id,
-                                 @Param("current")int current,
-                                 @Param("length")int length) throws JsonProcessingException{
+    public String selectTeacher (HttpSession session,@RequestParam("user_Id")String user_Id,
+                                 @RequestParam("college_Id")String college_Id,
+                                 @RequestParam("specialty_Id")String specialty_Id,
+                                 @RequestParam("current")int current,
+                                 @RequestParam("length")int length) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         ArrayList<Teacher_Basic> teacher_Basic = new ArrayList<Teacher_Basic>();

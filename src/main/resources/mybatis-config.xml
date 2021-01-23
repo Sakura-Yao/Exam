@@ -22,5 +22,9 @@
         <mapper class="com.huade.dao.KnowledgeMapper"/>
         <mapper class="com.huade.dao.TestUEditorMapper"/>
         <mapper class="com.huade.dao.QuestionInfoMapper"/>
+        <mapper class="com.huade.dao.ExamPlanMapper"/>
+        <mapper class="com.huade.dao.ExamGenerateMapper"/>
+        <mapper class="com.huade.dao.ExamPaperMapper"/>
+        <mapper class="com.huade.dao.QuestionTimesMapper"/>
     </mappers>
 </configuration>

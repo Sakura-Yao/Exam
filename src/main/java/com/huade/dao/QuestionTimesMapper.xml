@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huade.dao.QuestionTimesMapper">
+
+    <insert id="addQuestionTimesInfo" parameterType="QuestionTimes">
+        insert into online_exam.question_times (question_Id, times) VALUES
+        (#{question_Id},#{times})
+    </insert>
+
+    <update id="useQuestion" parameterType="String">
+        update online_exam.question_times
+        set times= times+1
+        where question_Id=#{question_Id}
+    </update>
+
+    <select id="selectAll" resultType="QuestionTimes">
+        select * from online_exam.question_times
+    </select>
+
+</mapper>

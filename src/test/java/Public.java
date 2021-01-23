@@ -98,7 +98,10 @@ public class Public {
 
     @Test
     public void getuuid(){
-//        System.out.println(uuid());
+        for (int i = 0; i < 5; i++) {
+            System.out.println(uuid());
+        }
+
 
     }
     @Test

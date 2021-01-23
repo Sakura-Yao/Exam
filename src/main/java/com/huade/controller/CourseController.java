@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -24,7 +25,7 @@ public class CourseController {
 
     @RequestMapping("/addCourseInfo")
     @ResponseBody
-    public String addCourseInfo(HttpSession session,@Param("Id") String Id,@Param("cou_Name") String cou_Name,@Param("spe_Id") String spe_Id) throws JsonProcessingException{
+    public String addCourseInfo(HttpSession session, @RequestParam("Id") String Id, @RequestParam("cou_Name") String cou_Name, @RequestParam("spe_Id") String spe_Id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         Course course = new Course(Id,cou_Name);
@@ -46,7 +47,7 @@ public class CourseController {
     }
     @RequestMapping("/deleteCourseInfo")
     @ResponseBody
-    public String deleteCourseInfo(HttpSession session, @Param("cou_Id") String cou_Id) throws JsonProcessingException{
+    public String deleteCourseInfo(HttpSession session, @RequestParam("cou_Id") String cou_Id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         if (session.getAttribute("login_session") != null){
@@ -68,7 +69,7 @@ public class CourseController {
     }
     @RequestMapping("/updateCourseInfo")
     @ResponseBody
-    public String updateCourseInfo(HttpSession session,@Param("Id") String Id,@Param("cou_Name") String cou_Name,@Param("spe_Id") String spe_Id) throws JsonProcessingException {
+    public String updateCourseInfo(HttpSession session,@RequestParam("Id") String Id,@RequestParam("cou_Name") String cou_Name,@RequestParam("spe_Id") String spe_Id) throws JsonProcessingException {
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         Course course = new Course(Id,cou_Name);
@@ -90,7 +91,7 @@ public class CourseController {
     }
     @RequestMapping("/selectAllCourseInfo")
     @ResponseBody
-    public String selectAllCourseInfo(HttpSession session,@Param("current") int current,@Param("length") int length) throws JsonProcessingException {
+    public String selectAllCourseInfo(HttpSession session,@RequestParam("current") int current,@RequestParam("length") int length) throws JsonProcessingException {
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         if(session.getAttribute("login_session") != null){

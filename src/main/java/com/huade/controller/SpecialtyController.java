@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -24,7 +25,7 @@ public class SpecialtyController {
 
     @RequestMapping("/addSpecialtyInfo")
     @ResponseBody
-    public String addSpecialtyInfo(HttpSession session, @Param("Id") String Id,@Param("spe_Name") String spe_Name,@Param("cou_Id") String cou_Id) throws JsonProcessingException{
+    public String addSpecialtyInfo(HttpSession session, @RequestParam("Id") String Id, @RequestParam("spe_Name") String spe_Name, @RequestParam("cou_Id") String cou_Id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         Specialty specialty = new Specialty(Id,spe_Name,cou_Id);
@@ -50,7 +51,7 @@ public class SpecialtyController {
     }
     @RequestMapping("/deleteSpecialtyInfo")
     @ResponseBody
-    public String deleteSpecialtyInfo(HttpSession session, @Param("Id") String Id) throws JsonProcessingException{
+    public String deleteSpecialtyInfo(HttpSession session, @RequestParam("Id") String Id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         if(session.getAttribute("login_session") != null){
@@ -73,7 +74,7 @@ public class SpecialtyController {
     }
     @RequestMapping("/updateSpecialtyInfo")
     @ResponseBody
-    public String updateSpecialtyInfo(HttpSession session,@Param("Id") String Id,@Param("spe_Name") String spe_Name,@Param("col_Id") String col_Id) throws JsonProcessingException{
+    public String updateSpecialtyInfo(HttpSession session,@RequestParam("Id") String Id,@RequestParam("spe_Name") String spe_Name,@RequestParam("col_Id") String col_Id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         Specialty specialty = new Specialty(Id,spe_Name,col_Id);
@@ -122,7 +123,7 @@ public class SpecialtyController {
     }
     @RequestMapping("/selectCollegeInfo_col_Id")
     @ResponseBody
-    public String selectCollegeInfo_col_Id(HttpSession session,@Param("col_Id") String col_Id) throws JsonProcessingException{
+    public String selectCollegeInfo_col_Id(HttpSession session,@RequestParam("col_Id") String col_Id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
         if(session.getAttribute("login_session") != null){

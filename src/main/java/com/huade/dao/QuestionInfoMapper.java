@@ -19,4 +19,8 @@ public interface QuestionInfoMapper {
                                           @Param("subject")String subject,
                                           @Param("degree")String degree,
                                           @Param("current")int current,@Param("length") int length);
+
+    QuestionInfo[] GA_QuestionInfo(@Param("cou_Id")String cou_Id,
+                                       @Param("type")String type,
+                                       @Param("kwl_list") String[] kwl_list);
 }

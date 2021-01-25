@@ -43,4 +43,20 @@
         </if>
     </select>
 
+    <select id="GA_QuestionInfo" resultType="QuestionInfo">
+        select * from online_exam.question
+        <where>
+            <if test="cou_Id != null and cou_Id != ''">
+                and cou_Id = #{cou_Id}
+            </if>
+            <if test="type != null and type != ''">
+                and type_Id = #{type}
+            </if>
+            and kwl_Id in
+            <foreach collection="kwl_list" item="kwl_Id" index="index" open="(" close=")" separator=",">
+                #{kwl_Id}
+            </foreach>
+        </where>
+    </select>
+
 </mapper>

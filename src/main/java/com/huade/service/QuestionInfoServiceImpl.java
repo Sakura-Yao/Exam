@@ -32,4 +32,9 @@ public class QuestionInfoServiceImpl implements QuestionInfoMapper {
     public List<QuestionInfo> selectQuestionInfo(String question_Id, String cou_Id, String type_Id, String subject, String degree, int current, int length) {
         return questionInfoMapper.selectQuestionInfo(question_Id, cou_Id, type_Id, subject, degree, current, length);
     }
+
+    @Override
+    public QuestionInfo[] GA_QuestionInfo(String cou_Id, String type, String[] kwl_list) {
+        return questionInfoMapper.GA_QuestionInfo(cou_Id,type,kwl_list);
+    }
 }

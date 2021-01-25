@@ -1,10 +1,12 @@
 import com.huade.pojo.Exam_Generate;
 import com.huade.pojo.QuestionInfo;
 import com.huade.pojo.QuestionTimes;
+import com.huade.pojo.View_Knowledge;
 import com.huade.service.*;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class ExamTest {
@@ -57,17 +59,28 @@ public class ExamTest {
         questionInfoServiceImpl.addQuestionInfo(questionInfo);
     }
 
+
+    public double degree(){
+        DecimalFormat df2  = new DecimalFormat(".00");
+        double degree = 0.00;
+        while(degree<=0.30 || degree >=0.99){
+            degree = Double.parseDouble(df2.format(Math.random()));
+        }
+        return degree;
+    }
+
     @Test
     public void t5(){
-        String[] type = {"1f45bd0005c541b998731546b3b8909a","9d1ec85c8fdd40ba8b4cc733d4d72581","a3514b0394a940cea19d5e1ef74b041f",
-        "b5046eea8c484ec8ab011da3a650a1e5","3eb9b37cff394f3fa9a1a052e1685105","fd09a3873f184169b4fd335934078123","1996a697e26a4453a80900a82c1df699"};
+        String[] type = {"9d1ec85c8fdd40ba8b4cc733d4d72581","1996a697e26a4453a80900a82c1df699","1f45bd0005c541b998731546b3b8909a"};
         String [] degree = {"0.45","0.65","0.25","0.45","0.65","0.25","0.45","0.25","0.65","0.45"};
+        String[] knowledge = t9();
         //随机生成1000道题目
+        Random random = new Random();
         int success = 0;
-        for (int i = 1; i <= 1000; i++) {
+        for (int i = 1; i <= 10000; i++) {
             String uuid = UUID.randomUUID().toString().replace("-","");
-            QuestionInfo questionInfo = new QuestionInfo(uuid,"test01",type[(int)(Math.random()*7)],"测试试题"+i,"-","-","-","-","测试答案",
-                    degree[(int)(Math.random()*10)],"test01","测试解析");
+            QuestionInfo questionInfo = new QuestionInfo(uuid,"test01",type[(int)(random.nextInt(type.length))],"测试试题"+i,"-","-","-","-","测试答案",
+                    String.valueOf(degree()),knowledge[(int) (random.nextInt(knowledge.length))],"测试解析");
             success = success + questionInfoServiceImpl.addQuestionInfo(questionInfo);
             QuestionTimes questionTimes = new QuestionTimes(uuid,0);
             success = success + questionTimesServiceImpl.addQuestionTimesInfo(questionTimes);
@@ -88,6 +101,7 @@ public class ExamTest {
         String[] type = {"1f45bd0005c541b998731546b3b8909a","9d1ec85c8fdd40ba8b4cc733d4d72581","a3514b0394a940cea19d5e1ef74b041f",
                 "b5046eea8c484ec8ab011da3a650a1e5","3eb9b37cff394f3fa9a1a052e1685105","fd09a3873f184169b4fd335934078123","1996a697e26a4453a80900a82c1df699"};
         String cou_Id = "test01";
+
         Random random = new Random();
         double degree_avg = 0;
         for (String s : type) {
@@ -129,7 +143,38 @@ public class ExamTest {
             }
             num++;
         }
+    }
 
+
+    public String[] t9(){
+        List<View_Knowledge> view_knowledges = knowledgeServiceImpl.selectKnowledge("","TT001","2","","",0, 0);
+        String[] res = new String[view_knowledges.size()];
+        int index = 0;
+        for (View_Knowledge view_knowledge : view_knowledges) {
+            res[index] = view_knowledge.getId();
+            index++;
+        }
+        return res;
+    }
+
+    @Test
+    public void t10(){
+        String[] res = t9();
+        StringBuffer str = new StringBuffer();
+        for (String re : res) {
+            str.append("\""+re+"\""+",");
+        }
+        System.out.println(str);
+    }
+
+    @Test
+    public void t11(){
+        String[] kwl_Ids = {"c795c6b761954bd391e7cad4cff61a69","8dbaecc4ce4144289a4bb8e443b2b3af"};
+        String cou_Id = "test01";
+        String type = "9d1ec85c8fdd40ba8b4cc733d4d72581";
+        QuestionInfo[] questionInfos = null;
+         questionInfos = questionInfoServiceImpl.GA_QuestionInfo(cou_Id, type, kwl_Ids);
+        System.out.println(questionInfos[12]);
     }
 
 }

@@ -60,9 +60,8 @@ public class GA_Main {
             System.out.println("第 " + count + " 次进化，适应度为： " + population.getFitness().getAdaptationDegree());
         }
         System.out.println("进化次数： " + count);
-        System.out.println(population.getFitness().getAdaptationDegree());
         resultPaper = population.getFitness();
-        System.out.println("初次适应度："+population.getFitness().getAdaptationDegree());
+        System.out.println("适应度："+population.getFitness().getAdaptationDegree());
         System.out.println("知识点覆盖率："+population.getFitness().getKPCoverage());
         System.out.println("难度系数："+population.getFitness().getDifficulty(rule));
     }

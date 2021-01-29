@@ -5,14 +5,14 @@
 <mapper namespace="com.huade.dao.CourseMapper">
 
     <insert id="addCourseInfo" parameterType="Course">
-        insert into online_exam.course(Id, cou_Name) VALUES
-        (#{Id},#{cou_Name})
+        insert into online_exam.course(Id, cou_Name, spe_Id) VALUES
+        (#{Id},#{cou_Name},#{spe_Id})
     </insert>
 
     <insert id="batchAddCourseInfo" parameterType="java.util.List">
         insert into online_exam.course(Id, cou_Name) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.Id},#{item.cou_Name})
+            (#{item.Id},#{item.cou_Name},#{item.spe_Id})
         </foreach>
     </insert>
 
@@ -22,19 +22,22 @@
 
     <update id="updateCourseInfo" parameterType="Course">
         update online_exam.course
-        set cou_Name=#{cou_Name}
+        set cou_Name=#{cou_Name},spe_Id=#{spe_Id}
         where Id=#{Id}
     </update>
 
     <select id="selectAllCourseInfo" resultType="View_CourseInfo">
-        select * from online_exam.view_course_info LIMIT #{current},#{length};
+        select * from online_exam.view_course_info
+        <if test="current != 0 and length != 0">
+            LIMIT #{current},#{length};
+        </if>
     </select>
 
     <select id="selectCourseInfo" resultType="View_CourseInfo">
         select * from online_exam.view_course_info
         <where>
-            <if test="cou_Name != null and cou_Name != ''">
-                and cou_Name like "%"#{cou_Name}"%"
+            <if test="spe_Id != null and spe_Id != ''">
+                and spe_Id =#{spe_Id}
             </if>
         </where>
         <if test="current != 0 and length != 0">

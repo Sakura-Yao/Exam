@@ -18,6 +18,6 @@ public interface CourseMapper {
 
     List<Course> selectAllCourseInfo(@Param("current")int current,@Param("length") int length);
 
-    List<Course> selectCourseInfo(@Param("cou_Name")String cou_Name,@Param("current")int current,@Param("length") int length);
+    List<Course> selectCourseInfo(@Param("spe_Id")String spe_Id,@Param("current")int current,@Param("length") int length);
 
 }

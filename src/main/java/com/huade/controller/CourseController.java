@@ -28,7 +28,7 @@ public class CourseController {
     public String addCourseInfo(HttpSession session, @RequestParam("Id") String Id, @RequestParam("cou_Name") String cou_Name, @RequestParam("spe_Id") String spe_Id) throws JsonProcessingException{
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
-        Course course = new Course(Id,cou_Name);
+        Course course = new Course(Id,cou_Name,spe_Id);
         if(session.getAttribute("login_session") != null){
             if(courseService.addCourseInfo(course) == 1){
                 object.put("code",1);
@@ -72,7 +72,7 @@ public class CourseController {
     public String updateCourseInfo(HttpSession session,@RequestParam("Id") String Id,@RequestParam("cou_Name") String cou_Name,@RequestParam("spe_Id") String spe_Id) throws JsonProcessingException {
         JSONObject object = new JSONObject();
         ObjectMapper mapper = new ObjectMapper();
-        Course course = new Course(Id,cou_Name);
+        Course course = new Course(Id,cou_Name,spe_Id);
         if (session.getAttribute("login_session") != null) {
             if (courseService.updateCourseInfo(course) == 1) {
                 object.put("code", 1);
@@ -112,29 +112,28 @@ public class CourseController {
         }
     }
 
-    //需要更改
-//    @RequestMapping("/selectCourseInfo")
-//    @ResponseBody
-//    public String selectCourseInfo(HttpSession session,@Param("spe_Id") String spe_Id,@Param("current") int current,@Param("length") int length) throws JsonProcessingException {
-//        JSONObject object = new JSONObject();
-//        ObjectMapper mapper = new ObjectMapper();
-//        if (session.getAttribute("login_session") != null) {
-//            if (courseService.selectCourseInfo(spe_Id, current, length) != null) {
-//                object.put("code", 1);
-//                object.put("message", "查询课程成功！");
-//                object.put("data",courseService.selectCourseInfo(spe_Id, current, length));
-//                return mapper.writeValueAsString(object);
-//            } else {
-//                object.put("code", 0);
-//                object.put("message", "未查询到任何课程！");
-//                return mapper.writeValueAsString(object);
-//            }
-//        } else {
-//            object.put("code", -1);
-//            object.put("message", "登陆状态失效！请重新登录！");
-//            return mapper.writeValueAsString(object);
-//        }
-//    }
+    @RequestMapping("/selectCourseInfo")
+    @ResponseBody
+    public String selectCourseInfo(HttpSession session,@Param("spe_Id") String spe_Id,@Param("current") int current,@Param("length") int length) throws JsonProcessingException {
+        JSONObject object = new JSONObject();
+        ObjectMapper mapper = new ObjectMapper();
+        if (session.getAttribute("login_session") != null) {
+            if (courseService.selectCourseInfo(spe_Id, current, length) != null) {
+                object.put("code", 1);
+                object.put("message", "查询课程成功！");
+                object.put("data",courseService.selectCourseInfo(spe_Id, current, length));
+                return mapper.writeValueAsString(object);
+            } else {
+                object.put("code", 0);
+                object.put("message", "未查询到任何课程！");
+                return mapper.writeValueAsString(object);
+            }
+        } else {
+            object.put("code", -1);
+            object.put("message", "登陆状态失效！请重新登录！");
+            return mapper.writeValueAsString(object);
+        }
+    }
 
 
 

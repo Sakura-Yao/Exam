@@ -9,15 +9,24 @@ public class Rule {
 
     private String Id;
     private String examId;
+    private String cou_Id;
     private double totalMark;
     private double difficulty;
-    private String singleNum;
+    private int singleNum;
     private double singleScore;
-    private String completeNum;
+    private int completeNum;
     private double completeScore;
-    private String subjectNum;
+    private int subjectNum;
     private double subjectScore;
     private List<String> pointIds;
+
+    public String getCou_Id() {
+        return cou_Id;
+    }
+
+    public void setCou_Id(String cou_Id) {
+        this.cou_Id = cou_Id;
+    }
 
     public String getId() {
         return Id;
@@ -51,11 +60,11 @@ public class Rule {
         this.difficulty = difficulty;
     }
 
-    public String getSingleNum() {
+    public int getSingleNum() {
         return singleNum;
     }
 
-    public void setSingleNum(String singleNum) {
+    public void setSingleNum(int singleNum) {
         this.singleNum = singleNum;
     }
 
@@ -67,11 +76,11 @@ public class Rule {
         this.singleScore = singleScore;
     }
 
-    public String getCompleteNum() {
+    public int getCompleteNum() {
         return completeNum;
     }
 
-    public void setCompleteNum(String completeNum) {
+    public void setCompleteNum(int completeNum) {
         this.completeNum = completeNum;
     }
 
@@ -83,11 +92,11 @@ public class Rule {
         this.completeScore = completeScore;
     }
 
-    public String getSubjectNum() {
+    public int getSubjectNum() {
         return subjectNum;
     }
 
-    public void setSubjectNum(String subjectNum) {
+    public void setSubjectNum(int subjectNum) {
         this.subjectNum = subjectNum;
     }
 

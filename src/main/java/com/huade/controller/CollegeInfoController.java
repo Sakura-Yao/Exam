@@ -39,7 +39,7 @@ public class CollegeInfoController {
             }
             else {
                 object.put("code",-1);
-                object.put("messger","添加学院信息失败！");
+                object.put("message","添加学院信息失败！");
                 return mapper.writeValueAsString(object);
             }
         }

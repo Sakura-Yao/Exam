@@ -3,7 +3,10 @@ package com.huade.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.huade.Utils.GA;
+import com.huade.pojo.Paper;
 import com.huade.pojo.QuestionInfo;
+import com.huade.pojo.Rule;
 import com.huade.pojo.Test_Ueditor;
 import com.huade.service.QuestionInfoServiceImpl;
 import com.huade.service.TestUEditorServiceImpl;
@@ -21,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -125,4 +129,57 @@ public class TestController {
         return String.valueOf(res);
     }
 
+    @RequestMapping("/test")
+    @ResponseBody
+    public Paper test(@RequestParam("totalMark")String totalMark,
+                      @RequestParam("difficulty")String difficulty,
+                      @RequestParam("cou_Id")String cou_Id,
+                      @RequestParam("singleNum")String singleNum,
+                      @RequestParam("singleScore")String singleScore,
+                      @RequestParam("completeNum")String completeNum,
+                      @RequestParam("completeScore")String completeScore,
+                      @RequestParam("subjectNum")String subjectNum,
+                      @RequestParam("subjectScore")String subjectScore,
+                      @RequestParam("pointIds")List<String> pointIds){
+        System.out.println(totalMark);
+        System.out.println(difficulty);
+        System.out.println(singleNum);
+        Rule rule = new Rule();
+        rule.setId(UUID.randomUUID().toString().replace("-",""));
+        rule.setExamId(UUID.randomUUID().toString().replace("-",""));
+        rule.setCou_Id(cou_Id);
+        rule.setTotalMark(Double.parseDouble(totalMark));
+        rule.setDifficulty(Double.parseDouble(difficulty));
+        if (singleNum == null ||singleNum.equals("")) {
+            rule.setSingleNum(0);
+            rule.setSingleScore(0);
+        }else {
+            rule.setSingleNum(Integer.parseInt(singleNum));
+            rule.setSingleScore(Double.parseDouble(singleScore));
+        }
+        if (completeNum == null || completeNum.equals("")) {
+            rule.setCompleteNum(0);
+            rule.setCompleteScore(0);
+        }else {
+            rule.setCompleteNum(Integer.parseInt(completeNum));
+            rule.setCompleteScore(Double.parseDouble(completeScore));
+        }
+        if (subjectNum == null || singleNum.equals("")) {
+            rule.setSubjectNum(0);
+            rule.setSubjectScore(0);
+        } else {
+            rule.setSubjectNum(Integer.parseInt(subjectNum));
+            rule.setSubjectScore(Double.parseDouble(subjectScore));
+        }
+        rule.setPointIds(pointIds);
+        Paper paper = GA.AutoMakePaper(rule);
+        return paper;
+    }
+
+    @RequestMapping("/test1")
+    @ResponseBody
+    public String test1(@RequestParam("test1")String test1){
+        System.out.println(test1.equals(""));
+        return test1;
+    }
 }

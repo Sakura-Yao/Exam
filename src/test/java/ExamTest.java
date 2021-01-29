@@ -1,7 +1,4 @@
-import com.huade.pojo.Exam_Generate;
-import com.huade.pojo.QuestionInfo;
-import com.huade.pojo.QuestionTimes;
-import com.huade.pojo.View_Knowledge;
+import com.huade.pojo.*;
 import com.huade.service.*;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -162,7 +159,8 @@ public class ExamTest {
         String[] res = t9();
         StringBuffer str = new StringBuffer();
         for (String re : res) {
-            str.append("\""+re+"\""+",");
+//            str.append("\""+re+"\""+",");
+            str.append(re+",");
         }
         System.out.println(str);
     }
@@ -175,6 +173,14 @@ public class ExamTest {
         QuestionInfo[] questionInfos = null;
          questionInfos = questionInfoServiceImpl.GA_QuestionInfo(cou_Id, type, kwl_Ids);
         System.out.println(questionInfos[12]);
+    }
+
+
+    @Test
+    public void t12(){
+        Rule rule = new Rule();
+        rule.setSingleNum(1);
+        System.out.println(rule.getSingleNum());
     }
 
 }

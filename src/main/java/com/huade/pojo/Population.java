@@ -4,7 +4,6 @@ import com.huade.service.QuestionInfoServiceImpl;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Random;
-import java.util.UUID;
 
 /**
  * 种群，多套试卷
@@ -35,18 +34,18 @@ public class Population {
                     paper.getQuestionList().clear();
                     String[] idString = rule.getPointIds().toArray(new String[0]);
                     //单选题
-                    if (Integer.parseInt(rule.getSingleNum()) > 0) {
-                        generateQuestion("1f45bd0005c541b998731546b3b8909a", random, rule.getSingleNum(), rule.getSingleScore(), idString,
+                    if (rule.getSingleNum() > 0) {
+                        generateQuestion(rule,"1f45bd0005c541b998731546b3b8909a", random, rule.getSingleNum(), rule.getSingleScore(), idString,
                                 "单选题数量不够，组卷失败", paper);
                     }
                     //填空题
-                    if (Integer.parseInt(rule.getCompleteNum()) > 0) {
-                        generateQuestion("9d1ec85c8fdd40ba8b4cc733d4d72581", random, rule.getCompleteNum(), rule.getSingleScore(), idString,
+                    if (rule.getCompleteNum() > 0) {
+                        generateQuestion(rule,"9d1ec85c8fdd40ba8b4cc733d4d72581", random, rule.getCompleteNum(), rule.getSingleScore(), idString,
                                 "填空题数量不够，组卷失败", paper);
                     }
                     //主观题
-                    if (Integer.parseInt(rule.getSubjectNum()) > 0) {
-                        generateQuestion("1996a697e26a4453a80900a82c1df699", random, rule.getSubjectNum(), rule.getSingleScore(), idString,
+                    if (rule.getSubjectNum() > 0) {
+                        generateQuestion(rule,"1996a697e26a4453a80900a82c1df699", random, rule.getSubjectNum(), rule.getSingleScore(), idString,
                                 "编程题数量不够，组卷失败", paper);
                     }
                     paper.getTotalScore(rule);
@@ -60,12 +59,12 @@ public class Population {
         }
     }
 
-    private void generateQuestion(String Type, Random random, String questionNum, double score, String[] idString, String s, Paper paper) {
+    private void generateQuestion(Rule rule,String Type, Random random, int questionNum, double score, String[] idString, String s, Paper paper) {
         QuestionInfo[] Array = null;
         //暂时设置为空，之后需要更改Service方法
-        Array = questionInfoServiceImpl.GA_QuestionInfo("test01", Type, idString);
+        Array = questionInfoServiceImpl.GA_QuestionInfo(rule.getCou_Id(), Type, idString);
         QuestionInfo tmpQuestion;
-        for (int i = 0; i < Integer.parseInt(questionNum); i++) {
+        for (int i = 0; i < questionNum; i++) {
             int index = random.nextInt(Array.length - i);
             //初始化分数
             paper.addQuestion(Array[index]);
